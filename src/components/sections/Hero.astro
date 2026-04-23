@@ -13,9 +13,9 @@ const bullets = [
 ---
 
 <section class="relative overflow-hidden pt-10 lg:pt-14 pb-section" data-reveal>
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="opacity: var(--theme-img-opacity, 0.4)">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="opacity: calc(var(--theme-img-opacity, 0.4) + 0.15)">
     <img
-      src={url("images/hero/camo-soldier.jpg")}
+      src={url("images/hero/house-night.jpg")}
       alt=""
       width="1800"
       height="1200"
@@ -23,7 +23,7 @@ const bullets = [
       fetchpriority="high"
       class="absolute inset-0 h-full w-full object-cover"
     />
-    <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-bg/30"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/80 to-bg/20"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg"></div>
   </div>
 
@@ -94,8 +94,8 @@ const bullets = [
         <div aria-hidden="true" class="absolute -inset-6 -z-10 rounded-block bg-gradient-to-br from-accent/25 via-transparent to-brand/15 blur-2xl"></div>
         <div class="relative overflow-hidden rounded-block border border-border gradient-border">
           <img
-            src={url("images/hero/camo-tactical.jpg")}
-            alt="Группа быстрого реагирования в тактической экипировке"
+            src={url("images/hero/smart-home.jpg")}
+            alt="Современный дом под защитой умной охранной системы"
             width="1200"
             height="1500"
             loading="eager"
