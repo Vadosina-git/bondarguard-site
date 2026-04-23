@@ -1,0 +1,164 @@
+---
+import Button from "@components/ui/Button.astro";
+import { site } from "@data/site";
+import { url } from "@lib/url";
+import { ChevronLeft, ChevronRight, Shield, Phone } from "@lucide/astro";
+
+const slides = [
+  {
+    image: "images/hero/house-night.jpg",
+    eyebrow: "Пультовая охрана · 24/7",
+    title: "Защитим ваш объект быстрее, чем кто-либо успеет подойти",
+    text: `Для дома, квартиры и бизнеса в ${site.city} и области. ГБР выезжает за ${site.gbrTimeCity}, ${site.coverage.patrolCount}+ экипажей и собственный мониторинговый центр.`,
+    primary: { label: "Заказать звонок", action: "modal-call" },
+    secondary: { label: "Посмотреть тарифы", href: "/tarify" },
+  },
+  {
+    image: "images/scenes/cottage.jpg",
+    eyebrow: "Загородная недвижимость",
+    title: "Охрана домов и коттеджей",
+    text: "От Новорижского шоссе до Симферопольского. Беспроводные датчики, контроль периметра, режим «в отъезде».",
+    primary: { label: "Подробнее", href: "/ohrana-domov" },
+    secondary: { label: "Заказать звонок", action: "modal-call" },
+  },
+  {
+    image: "images/scenes/apartment.jpg",
+    eyebrow: "Городское жильё",
+    title: "Пультовая охрана квартир",
+    text: "Беспроводной монтаж за 2 часа без штробы и пыли. Уведомления в приложении, ГБР на тревогу.",
+    primary: { label: "Подробнее", href: "/ohrana-kvartir" },
+    secondary: { label: "Заказать звонок", action: "modal-call" },
+  },
+  {
+    image: "images/scenes/business.jpg",
+    eyebrow: "Коммерческая недвижимость",
+    title: "Охрана офисов, магазинов и складов",
+    text: "Тревожная кнопка, видеоверификация, отчётность под бухгалтерию. Гибкий SLA под формат объекта.",
+    primary: { label: "Подробнее", href: "/ohrana-biznesa" },
+    secondary: { label: "Заказать звонок", action: "modal-call" },
+  },
+];
+---
+
+<section class="relative overflow-hidden" data-hero-slider aria-label="Главное представление услуг" data-reveal>
+  <div data-embla class="relative">
+    <div data-embla-container class="flex">
+      {slides.map((s, i) => (
+        <article class="relative h-[86svh] min-h-[560px] flex-[0_0_100%] md:h-[90svh]">
+          <img
+            src={url(s.image)}
+            alt=""
+            width="1800"
+            height="1200"
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchpriority={i === 0 ? "high" : "auto"}
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+
+          <div aria-hidden="true" class="absolute inset-0 md:hidden bg-gradient-to-t from-bg via-bg/70 to-bg/20"></div>
+
+          <div aria-hidden="true" class="hidden md:block absolute inset-0" style="background: linear-gradient(100deg, rgb(var(--bg)) 0%, rgb(var(--bg) / 0.96) 40%, rgb(var(--bg) / 0.55) 56%, rgb(var(--bg) / 0) 70%);"></div>
+
+          <div aria-hidden="true" class="hidden md:block absolute inset-y-0 pointer-events-none" style="left: 58.2%; width: 1px; background: linear-gradient(180deg, transparent, rgb(var(--accent) / 0.55) 30%, rgb(var(--accent) / 0.55) 70%, transparent); transform: skewX(-10deg); transform-origin: top center;"></div>
+
+          <div class="container-tight relative z-10 flex h-full items-end pb-24 md:items-center md:pb-10">
+            <div class="max-w-2xl space-y-5">
+              <span class="eyebrow"><Shield class="h-3.5 w-3.5 text-accent" /> {s.eyebrow}</span>
+              <h1 class="font-display text-display-xl font-semibold text-ink">{s.title}</h1>
+              <p class="max-w-xl text-body-lg text-ink-muted">{s.text}</p>
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                {s.primary.action ? (
+                  <Button variant="primary" size="lg">
+                    <span data-modal-open={s.primary.action}>{s.primary.label}</span>
+                  </Button>
+                ) : (
+                  <Button href={s.primary.href!} variant="primary" size="lg">{s.primary.label}</Button>
+                )}
+                {s.secondary.action ? (
+                  <Button variant="secondary" size="lg">
+                    <span data-modal-open={s.secondary.action}>{s.secondary.label}</span>
+                  </Button>
+                ) : (
+                  <Button href={s.secondary.href!} variant="secondary" size="lg">{s.secondary.label}</Button>
+                )}
+                <a href={`tel:${site.phoneTel}`} class="hidden items-center gap-2 text-sm text-ink-muted transition-colors hover:text-accent lg:inline-flex">
+                  <Phone class="h-4 w-4 text-accent" />
+                  {site.phone}
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="container-tight relative z-10 -mt-12 flex items-center justify-between pb-4 md:-mt-14">
+    <div class="flex items-center gap-2 md:gap-3">
+      <button type="button" class="grid h-10 w-10 place-items-center rounded-btn border border-border bg-bg/70 text-ink backdrop-blur transition-colors hover:border-accent hover:text-accent" data-slider-prev aria-label="Предыдущий слайд">
+        <ChevronLeft class="h-5 w-5" />
+      </button>
+      <button type="button" class="grid h-10 w-10 place-items-center rounded-btn border border-border bg-bg/70 text-ink backdrop-blur transition-colors hover:border-accent hover:text-accent" data-slider-next aria-label="Следующий слайд">
+        <ChevronRight class="h-5 w-5" />
+      </button>
+    </div>
+    <div data-slider-dots class="flex items-center gap-2"></div>
+    <div class="hidden text-xs uppercase tracking-widest text-ink-muted md:block" data-slider-counter>01 / {slides.length.toString().padStart(2, "0")}</div>
+  </div>
+</section>
+
+<script>
+  import EmblaCarousel from "embla-carousel";
+
+  const init = () => {
+    const root = document.querySelector<HTMLElement>("[data-hero-slider] [data-embla]");
+    if (!root || (root as any)._heroEmbla) return;
+    const container = root.querySelector<HTMLElement>("[data-embla-container]");
+    if (!container) return;
+
+    const embla = EmblaCarousel(root, { loop: true, duration: 45 });
+    (root as any)._heroEmbla = embla;
+
+    const section = root.closest("section")!;
+    const dots = section.querySelector<HTMLElement>("[data-slider-dots]")!;
+    const counter = section.querySelector<HTMLElement>("[data-slider-counter]");
+    const slideCount = embla.scrollSnapList().length;
+
+    while (dots.firstChild) dots.removeChild(dots.firstChild);
+    for (let i = 0; i < slideCount; i++) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("aria-label", `Слайд ${i + 1}`);
+      btn.className = "h-1.5 w-2 rounded-full bg-border transition-all duration-300";
+      btn.addEventListener("click", () => embla.scrollTo(i));
+      dots.appendChild(btn);
+    }
+
+    const update = () => {
+      const selected = embla.selectedScrollSnap();
+      dots.querySelectorAll("button").forEach((btn, i) => {
+        btn.className = i === selected
+          ? "h-1.5 w-8 rounded-full bg-accent transition-all duration-300"
+          : "h-1.5 w-2 rounded-full bg-border transition-all duration-300";
+      });
+      if (counter) counter.textContent = `${String(selected + 1).padStart(2, "0")} / ${String(slideCount).padStart(2, "0")}`;
+    };
+    embla.on("select", update);
+    update();
+
+    section.querySelector<HTMLButtonElement>("[data-slider-prev]")?.addEventListener("click", () => embla.scrollPrev());
+    section.querySelector<HTMLButtonElement>("[data-slider-next]")?.addEventListener("click", () => embla.scrollNext());
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      let timer: ReturnType<typeof setInterval> | null = null;
+      const play = () => { timer = setInterval(() => embla.scrollNext(), 7000); };
+      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+      play();
+      root.addEventListener("mouseenter", stop);
+      root.addEventListener("mouseleave", play);
+      document.addEventListener("visibilitychange", () => document.hidden ? stop() : play());
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", init);
+</script>

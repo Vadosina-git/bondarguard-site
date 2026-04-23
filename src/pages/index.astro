@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import LocalBusinessJsonLd from "@components/seo/LocalBusinessJsonLd.astro";
-import Hero from "@components/sections/Hero.astro";
+import HeroSlider from "@components/sections/HeroSlider.astro";
 import TrustBar from "@components/sections/TrustBar.astro";
 import ServiceTiles from "@components/sections/ServiceTiles.astro";
 import ServicesGrid from "@components/sections/ServicesGrid.astro";
@@ -15,6 +15,7 @@ import Reviews from "@components/sections/Reviews.astro";
 import FAQ from "@components/sections/FAQ.astro";
 import ConsultationForm from "@components/sections/ConsultationForm.astro";
 import CTASection from "@components/sections/CTASection.astro";
+import ParallaxBand from "@components/sections/ParallaxBand.astro";
 import { site } from "@data/site";
 
 const title = `Пультовая охрана в ${site.city} — ${site.companyName}`;
@@ -24,12 +25,21 @@ const description = `Охрана домов, квартир и бизнеса �
 <BaseLayout title={title} description={description}>
   <LocalBusinessJsonLd />
 
-  <Hero />
+  <HeroSlider />
   <TrustBar />
 
   <div class="surface-plain">
     <ServiceTiles />
   </div>
+
+  <ParallaxBand
+    image="images/hero/villa-night.jpg"
+    eyebrow="Глубина защиты"
+    title="Датчики видят. Операторы слышат. ГБР приезжает."
+    text="Три уровня защиты работают в связке 24/7. Вы живёте — мы следим за периметром, за сигналом и за тем, чтобы экипаж уже был в пути при малейшей угрозе."
+    ctaLabel="Заказать консультацию"
+    ctaAction="modal-call"
+  />
 
   <div class="surface-tinted">
     <ServicesGrid />
@@ -47,6 +57,14 @@ const description = `Охрана домов, квартир и бизнеса �
   <div class="surface-plain">
     <Gallery />
   </div>
+
+  <ParallaxBand
+    image="images/scenes/tact-ops2.jpg"
+    eyebrow="Группа быстрого реагирования"
+    title={`${site.coverage.patrolCount}+ экипажей на маршруте прямо сейчас`}
+    text="Распределённая сеть ГБР по городу и области. На тревогу выезжает ближайший — не тот, у кого «свободный день»."
+    height="md"
+  />
 
   <div class="surface-tinted">
     <MobileApp />

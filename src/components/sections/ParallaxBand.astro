@@ -1,0 +1,66 @@
+---
+import { url } from "@lib/url";
+import Button from "@components/ui/Button.astro";
+
+export interface Props {
+  image?: string;
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaAction?: string;
+  height?: "md" | "lg";
+}
+
+const {
+  image = "images/hero/villa-night.jpg",
+  eyebrow = "Под защитой",
+  title,
+  text,
+  ctaLabel,
+  ctaHref,
+  ctaAction,
+  height = "md",
+} = Astro.props;
+
+const minH = height === "lg" ? "min-h-[70vh]" : "min-h-[56vh]";
+---
+
+<section class={`relative ${minH} overflow-hidden parallax-band`}>
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 bg-center bg-cover parallax-band__image"
+    style={`background-image: url('${url(image)}');`}
+  ></div>
+  <div aria-hidden="true" class="absolute inset-0 bg-bg/75"></div>
+  <div aria-hidden="true" class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 30% 50%, rgb(var(--accent) / 0.18), transparent 65%);"></div>
+
+  <div class={`container-tight relative z-10 flex ${minH} flex-col items-start justify-center py-20`} data-reveal>
+    <span class="eyebrow">{eyebrow}</span>
+    <h2 class="mt-4 max-w-3xl font-display text-display-lg font-semibold text-ink">{title}</h2>
+    {text && <p class="mt-4 max-w-2xl text-body-lg text-ink-muted">{text}</p>}
+    {(ctaLabel && (ctaHref || ctaAction)) && (
+      <div class="mt-8">
+        {ctaAction ? (
+          <Button variant="primary" size="lg">
+            <span data-modal-open={ctaAction}>{ctaLabel}</span>
+          </Button>
+        ) : (
+          <Button href={ctaHref!} variant="primary" size="lg">{ctaLabel}</Button>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  @media (min-width: 1024px) {
+    .parallax-band__image {
+      background-attachment: fixed;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-band__image { background-attachment: scroll; }
+  }
+</style>
