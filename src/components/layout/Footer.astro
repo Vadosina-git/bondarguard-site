@@ -11,8 +11,14 @@ const year = new Date().getFullYear();
   <div class="container-tight py-16">
     <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr_1fr]">
       <div>
-        <a href={url()} class="inline-flex items-center gap-3" aria-label={site.companyName}>
-          <img src={url("images/logos/logo-full.svg")} alt={site.companyName} class="h-10 w-auto" width="260" height="56" />
+        <a href={url()} class="inline-flex items-center gap-3 text-ink" aria-label={site.companyName}>
+          <svg class="h-10 w-auto" viewBox="0 0 260 56" aria-hidden="true">
+            <g transform="translate(6,6)" fill="none" stroke="#00D4AA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 1.5 L41 6.5 V18 C41 26.8 33.5 33.4 22 36 C10.5 33.4 3 26.8 3 18 V6.5 Z"/>
+              <path d="M13.2 19 L18.8 24.6 L30.6 13"/>
+            </g>
+            <text x="58" y="37" font-family="Unbounded Variable, Unbounded, system-ui, sans-serif" font-weight="700" font-size="20" letter-spacing="0.8" fill="currentColor">BONDAR’ GUARD</text>
+          </svg>
         </a>
         <p class="mt-4 max-w-xs text-sm text-ink-muted">{site.tagline}</p>
 

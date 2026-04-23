@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    /* premium-dark tokens (from CLAUDE.md §5.1) */
+    /* premium-dark tokens (default, from CLAUDE.md §5.1) */
     --bg: 11 15 23;            /* #0B0F17 */
     --bg-elevated: 19 24 38;    /* #131826 */
     --bg-muted: 26 32 48;       /* slightly lighter panel */
@@ -21,6 +21,26 @@
     --border-strong: 72 86 118;
     --success: 0 200 140;
     --danger: 240 92 92;
+    --theme-img-opacity: 0.4;
+    --theme-overlay-mix: 0;
+  }
+
+  html.light {
+    /* light theme */
+    --bg: 246 249 252;          /* very cool off-white */
+    --bg-elevated: 255 255 255;
+    --bg-muted: 237 242 247;
+    --ink: 14 22 38;            /* deep ink */
+    --ink-muted: 71 85 105;
+    --ink-subtle: 120 134 155;
+    --accent: 0 170 136;        /* slightly darker for contrast on white */
+    --accent-strong: 0 145 116;
+    --brand: 37 99 235;
+    --border: 218 226 237;
+    --border-strong: 191 202 218;
+    --success: 0 150 110;
+    --danger: 220 70 70;
+    --theme-img-opacity: 0.28;
   }
 
   html {
@@ -29,6 +49,10 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+  }
+
+  html.light {
+    color-scheme: light;
   }
 
   body {

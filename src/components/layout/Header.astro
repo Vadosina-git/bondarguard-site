@@ -5,6 +5,7 @@ import { url } from "@lib/url";
 import { Phone, ChevronDown } from "@lucide/astro";
 import Button from "@components/ui/Button.astro";
 import MobileMenu from "./MobileMenu.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header
@@ -12,9 +13,21 @@ import MobileMenu from "./MobileMenu.astro";
   class="sticky top-0 z-50 border-b border-transparent bg-bg/70 backdrop-blur-lg transition-[border-color,padding] duration-300 data-[scrolled]:border-border"
 >
   <div class="container-tight flex h-16 items-center justify-between gap-6 lg:h-20">
-    <a href={url()} class="flex items-center gap-3" aria-label={site.companyName}>
-      <img src={url("images/logos/logo-full.svg")} alt={site.companyName} class="hidden h-10 w-auto lg:block" width="260" height="56" />
-      <img src={url("images/logos/logo-short.svg")} alt={site.companyName} class="h-9 w-auto lg:hidden" width="180" height="56" />
+    <a href={url()} class="flex items-center gap-3 text-ink" aria-label={site.companyName}>
+      <svg class="hidden h-10 w-auto lg:block" viewBox="0 0 260 56" aria-hidden="true">
+        <g transform="translate(6,6)" fill="none" stroke="#00D4AA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 1.5 L41 6.5 V18 C41 26.8 33.5 33.4 22 36 C10.5 33.4 3 26.8 3 18 V6.5 Z"/>
+          <path d="M13.2 19 L18.8 24.6 L30.6 13"/>
+        </g>
+        <text x="58" y="37" font-family="Unbounded Variable, Unbounded, system-ui, sans-serif" font-weight="700" font-size="20" letter-spacing="0.8" fill="currentColor">BONDAR’ GUARD</text>
+      </svg>
+      <svg class="h-9 w-auto lg:hidden" viewBox="0 0 180 56" aria-hidden="true">
+        <g transform="translate(6,6)" fill="none" stroke="#00D4AA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 1.5 L41 6.5 V18 C41 26.8 33.5 33.4 22 36 C10.5 33.4 3 26.8 3 18 V6.5 Z"/>
+          <path d="M13.2 19 L18.8 24.6 L30.6 13"/>
+        </g>
+        <text x="58" y="37" font-family="Unbounded Variable, Unbounded, system-ui, sans-serif" font-weight="700" font-size="22" letter-spacing="0.8" fill="currentColor">BONDAR’</text>
+      </svg>
     </a>
 
     <nav aria-label="Главная навигация" class="hidden flex-1 items-center justify-center lg:flex">
@@ -48,12 +61,13 @@ import MobileMenu from "./MobileMenu.astro";
       </ul>
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3">
       <a href={`tel:${site.phoneTel}`} class="hidden items-center gap-2 rounded-btn px-2 py-1 text-sm font-semibold text-ink transition-colors hover:text-accent md:inline-flex">
         <Phone class="h-4 w-4 text-accent" />
         <span class="hidden xl:inline">{site.phone}</span>
         <span class="xl:hidden">Позвонить</span>
       </a>
+      <ThemeToggle class="hidden sm:grid" />
       <Button variant="primary" size="sm" dataAction="open-call" class="hidden sm:inline-flex">
         <span data-modal-open="modal-call">Заказать звонок</span>
       </Button>

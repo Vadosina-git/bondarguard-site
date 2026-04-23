@@ -28,6 +28,16 @@ const ymId = site.analytics.yandexMetrikaId;
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
+  <script is:inline>
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        var theme = saved || (prefersLight ? "light" : "dark");
+        if (theme === "light") document.documentElement.classList.add("light");
+      } catch (e) {}
+    })();
+  </script>
   <BaseSEO
     title={title}
     description={description}

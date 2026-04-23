@@ -3,13 +3,20 @@ import { site } from "@data/site";
 import { mainNav } from "@data/navigation";
 import { url } from "@lib/url";
 import { X, Phone } from "@lucide/astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <div id="mobile-menu" class="fixed inset-0 z-[60] invisible opacity-0 transition-all duration-300" aria-hidden="true">
   <div class="absolute inset-0 bg-bg/80 backdrop-blur-md" data-mobile-menu-close></div>
   <div class="absolute right-0 top-0 h-full w-full max-w-sm translate-x-full border-l border-border bg-bg-elevated p-6 transition-transform duration-300 ease-out-quart overflow-y-auto" data-mobile-menu-panel>
     <div class="mb-6 flex items-center justify-between">
-      <img src={url("images/logos/logo-short.svg")} alt={site.companyName} class="h-8 w-auto" width="180" height="56" />
+      <svg class="h-9 w-auto text-ink" viewBox="0 0 180 56" aria-label={site.companyName}>
+        <g transform="translate(6,6)" fill="none" stroke="#00D4AA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 1.5 L41 6.5 V18 C41 26.8 33.5 33.4 22 36 C10.5 33.4 3 26.8 3 18 V6.5 Z"/>
+          <path d="M13.2 19 L18.8 24.6 L30.6 13"/>
+        </g>
+        <text x="58" y="37" font-family="Unbounded Variable, Unbounded, system-ui, sans-serif" font-weight="700" font-size="22" letter-spacing="0.8" fill="currentColor">BONDAR’</text>
+      </svg>
       <button type="button" class="grid h-10 w-10 place-items-center rounded-btn border border-border text-ink" aria-label="Закрыть меню" data-mobile-menu-close>
         <X class="h-5 w-5" />
       </button>
@@ -46,6 +53,10 @@ import { X, Phone } from "@lucide/astro";
       <button type="button" class="w-full rounded-btn bg-accent px-4 py-3 text-base font-semibold text-bg" data-modal-open="modal-call">
         Заказать звонок
       </button>
+      <div class="flex items-center justify-between rounded-btn border border-border px-4 py-2">
+        <span class="text-sm text-ink-muted">Тема оформления</span>
+        <ThemeToggle />
+      </div>
     </div>
   </div>
 </div>
