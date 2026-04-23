@@ -23,6 +23,7 @@
     --danger: 255 100 100;
     --theme-img-opacity: 0.45;
     --theme-overlay-mix: 0;
+    --band-alt: 22 30 48;       /* clearly stepped-up alt surface (dark) */
   }
 
   html.light {
@@ -41,6 +42,7 @@
     --success: 0 150 110;
     --danger: 210 55 55;
     --theme-img-opacity: 0.3;
+    --band-alt: 228 238 250;    /* visibly darker than bg in light */
   }
 
   html {
@@ -102,12 +104,14 @@
 
   .section { @apply py-section; }
 
-  .surface-plain { @apply bg-bg; }
+  .surface-plain {
+    @apply relative bg-bg;
+  }
   .surface-tinted {
     @apply relative;
-    background-color: rgb(var(--bg-muted));
-    border-top: 1px solid rgb(var(--border) / 0.7);
-    border-bottom: 1px solid rgb(var(--border) / 0.7);
+    background-color: rgb(var(--band-alt));
+    border-top: 1px solid rgb(var(--border) / 0.6);
+    border-bottom: 1px solid rgb(var(--border) / 0.6);
   }
 
   .eyebrow {

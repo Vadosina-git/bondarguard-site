@@ -1,0 +1,47 @@
+---
+import { ShieldPlus, Flame, Timer } from "@lucide/astro";
+
+const items = [
+  {
+    icon: ShieldPlus,
+    kicker: "Сила",
+    title: "Вооружённые экипажи с правом задержания",
+    text: "Охранники со служебными удостоверениями МВД, средствами защиты и связью. Не просто «приехали посмотреть».",
+  },
+  {
+    icon: Timer,
+    kicker: "Скорость",
+    title: "5 минут — от сигнала до точки",
+    text: "Медианный отклик ГБР по городу. В области — до 15 минут. SLA прописан в договоре.",
+  },
+  {
+    icon: Flame,
+    kicker: "Дисциплина",
+    title: "Ежемесячные тренировки и разборы",
+    text: "Отрабатываем типовые и нестандартные инциденты: проникновение, пожар, тревожная кнопка, нападение.",
+  },
+];
+---
+
+<section class="section" data-reveal>
+  <div class="container-tight">
+    <div class="mb-10 max-w-2xl">
+      <span class="eyebrow">Принципы работы</span>
+      <h2 class="mt-4 font-display text-display-lg text-ink">Сила. Скорость. Дисциплина.</h2>
+      <p class="mt-3 text-ink-muted">Три опоры, на которых держится ежедневный результат. Работают вместе или не работают вовсе.</p>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-3">
+      {items.map((it) => (
+        <article class="group relative flex flex-col overflow-hidden rounded-card border border-border bg-bg-elevated p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow">
+          <div class="grid h-12 w-12 place-items-center rounded-btn border border-accent/40 bg-accent/10 text-accent">
+            <it.icon class="h-6 w-6" />
+          </div>
+          <div class="mt-5 text-xs uppercase tracking-widest text-accent">{it.kicker}</div>
+          <h3 class="mt-1 font-display text-xl text-ink">{it.title}</h3>
+          <p class="mt-2 text-sm text-ink-muted">{it.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
