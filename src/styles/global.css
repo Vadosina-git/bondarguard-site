@@ -7,40 +7,40 @@
 
 @layer base {
   :root {
-    /* premium-dark tokens (default, from CLAUDE.md §5.1) */
-    --bg: 11 15 23;            /* #0B0F17 */
-    --bg-elevated: 19 24 38;    /* #131826 */
-    --bg-muted: 26 32 48;       /* slightly lighter panel */
-    --ink: 242 244 248;         /* #F2F4F8 */
-    --ink-muted: 154 163 178;   /* #9AA3B2 */
-    --ink-subtle: 109 118 133;
-    --accent: 0 212 170;        /* #00D4AA */
-    --accent-strong: 0 180 144;
-    --brand: 62 142 255;        /* #3E8EFF */
-    --border: 48 58 82;
-    --border-strong: 72 86 118;
-    --success: 0 200 140;
-    --danger: 240 92 92;
-    --theme-img-opacity: 0.4;
+    /* premium-dark tokens — high-contrast */
+    --bg: 6 10 18;              /* deeper near-black */
+    --bg-elevated: 22 28 44;    /* clearer step up */
+    --bg-muted: 34 42 64;       /* distinct alt surface */
+    --ink: 255 255 255;         /* pure white for text */
+    --ink-muted: 188 200 218;   /* brighter secondary */
+    --ink-subtle: 135 150 175;
+    --accent: 0 224 180;        /* slightly brighter emerald */
+    --accent-strong: 0 196 160;
+    --brand: 80 160 255;
+    --border: 76 92 128;        /* stronger border */
+    --border-strong: 110 130 168;
+    --success: 0 210 150;
+    --danger: 255 100 100;
+    --theme-img-opacity: 0.45;
     --theme-overlay-mix: 0;
   }
 
   html.light {
-    /* light theme */
-    --bg: 246 249 252;          /* very cool off-white */
+    /* light theme — high-contrast */
+    --bg: 246 249 252;
     --bg-elevated: 255 255 255;
-    --bg-muted: 237 242 247;
-    --ink: 14 22 38;            /* deep ink */
-    --ink-muted: 71 85 105;
-    --ink-subtle: 120 134 155;
-    --accent: 0 170 136;        /* slightly darker for contrast on white */
-    --accent-strong: 0 145 116;
-    --brand: 37 99 235;
-    --border: 218 226 237;
-    --border-strong: 191 202 218;
+    --bg-muted: 228 235 245;    /* more distinct alt surface */
+    --ink: 4 12 28;             /* near black */
+    --ink-muted: 52 67 90;      /* stronger secondary */
+    --ink-subtle: 95 112 135;
+    --accent: 0 160 130;
+    --accent-strong: 0 138 110;
+    --brand: 30 88 220;
+    --border: 190 204 222;      /* stronger border */
+    --border-strong: 160 176 198;
     --success: 0 150 110;
-    --danger: 220 70 70;
-    --theme-img-opacity: 0.28;
+    --danger: 210 55 55;
+    --theme-img-opacity: 0.3;
   }
 
   html {
@@ -74,7 +74,7 @@
 
   h1, h2, h3, h4 {
     @apply font-display text-ink;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   a {
@@ -105,13 +105,13 @@
   .surface-plain { @apply bg-bg; }
   .surface-tinted {
     @apply relative;
-    background: linear-gradient(180deg, rgb(var(--bg-muted) / 0.5), rgb(var(--bg-muted) / 0.7));
-    border-top: 1px solid rgb(var(--border) / 0.5);
-    border-bottom: 1px solid rgb(var(--border) / 0.5);
+    background-color: rgb(var(--bg-muted));
+    border-top: 1px solid rgb(var(--border) / 0.7);
+    border-bottom: 1px solid rgb(var(--border) / 0.7);
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-border bg-bg-elevated px-3 py-1 text-xs uppercase tracking-widest text-ink-muted;
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-bg-elevated px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent;
   }
 
   .link-underline {
