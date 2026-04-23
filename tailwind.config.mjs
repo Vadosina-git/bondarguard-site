@@ -49,14 +49,14 @@ export default {
         danger: 'rgb(var(--danger) / <alpha-value>)',
       },
       fontFamily: {
-        display: ['"Unbounded Variable"', 'Unbounded', 'system-ui', 'sans-serif'],
+        display: ['"Onest Variable"', 'Onest', 'system-ui', 'sans-serif'],
         body: ['"Manrope Variable"', 'Manrope', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'display-xl': ['clamp(2.5rem, 6vw, 5rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
-        'display-lg': ['clamp(2rem, 5vw, 3.75rem)', { lineHeight: '1.08', letterSpacing: '-0.02em' }],
-        'display-md': ['clamp(1.75rem, 4vw, 2.75rem)', { lineHeight: '1.1', letterSpacing: '-0.01em' }],
-        'display-sm': ['clamp(1.5rem, 3vw, 2rem)', { lineHeight: '1.15', letterSpacing: '-0.01em' }],
+        'display-xl': ['clamp(2.5rem, 6vw, 5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em' }],
+        'display-lg': ['clamp(2rem, 5vw, 3.75rem)', { lineHeight: '1.06', letterSpacing: '-0.03em' }],
+        'display-md': ['clamp(1.75rem, 4vw, 2.75rem)', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        'display-sm': ['clamp(1.5rem, 3vw, 2rem)', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
         'body-lg': ['clamp(1.0625rem, 1.1vw, 1.1875rem)', { lineHeight: '1.6' }],
       },
       borderRadius: {

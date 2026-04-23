@@ -2,125 +2,130 @@
 import Button from "@components/ui/Button.astro";
 import { site } from "@data/site";
 import { url } from "@lib/url";
-import { Shield, Zap } from "@lucide/astro";
+import { Shield, Timer, ShieldCheck, BadgeCheck, MapPin, Phone } from "@lucide/astro";
+
+const bullets = [
+  { icon: Timer, text: `ГБР на объекте за ${site.gbrTimeCity} в городе` },
+  { icon: ShieldCheck, text: "Лицензированная охрана с правом задержания" },
+  { icon: BadgeCheck, text: "Фикс-абонплата, монтаж за 1 день без ремонта" },
+  { icon: MapPin, text: `Ездим по ${site.city} и ключевым направлениям области` },
+];
 ---
 
-<section class="relative overflow-hidden pt-16 pb-section lg:pt-24" data-reveal>
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-20" style="opacity: var(--theme-img-opacity, 0.4)">
-    <img src={url("images/hero/night-city.jpg")} alt="" width="1600" height="1200" class="h-full w-full object-cover" loading="eager" fetchpriority="high" />
-    <div class="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/85 to-bg"></div>
+<section class="relative overflow-hidden pt-10 lg:pt-14 pb-section" data-reveal>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10" style="opacity: var(--theme-img-opacity, 0.4)">
+    <img
+      src={url("images/hero/camo-soldier.jpg")}
+      alt=""
+      width="1800"
+      height="1200"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-bg/30"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg"></div>
   </div>
-  <div
-    aria-hidden="true"
-    class="pointer-events-none absolute inset-0 -z-10 opacity-60"
-    style="background-image: radial-gradient(ellipse 60% 50% at 80% 20%, rgb(var(--accent) / 0.12), transparent 70%), radial-gradient(ellipse 50% 40% at 15% 90%, rgb(var(--brand) / 0.1), transparent 70%);"
-  />
+
   <div class="container-tight">
-    <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_1fr]">
-      <div class="space-y-6">
-        <span class="eyebrow"><Shield class="h-3.5 w-3.5 text-accent" /> Лицензия МВД · Работаем круглосуточно</span>
-        <h1 class="font-display text-display-xl text-ink">
-          Пультовая охрана<br />
-          <span class="text-accent">под гарантию времени</span><br />
-          в {site.city} и области
+    <div class="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="relative z-10 space-y-6 lg:space-y-8">
+        <span class="eyebrow">
+          <Shield class="h-3.5 w-3.5 text-accent" /> Лицензия МВД · Работаем 24/7
+        </span>
+
+        <h1 class="font-display text-display-xl font-semibold text-ink">
+          Защитим ваш объект быстрее,
+          <br class="hidden md:block" />
+          чем кто-либо <span class="text-accent">успеет подойти</span>
         </h1>
+
         <p class="max-w-xl text-body-lg text-ink-muted">
-          Защищаем дома, квартиры и бизнес. ГБР выезжает за {site.gbrTimeCity} в городе
-          и {site.gbrTimeRegion} в области. Беспроводной монтаж за 1 день, мобильное приложение,
-          честная абонплата без штрафов за ложные вызовы.
+          Пультовая охрана для дома, квартиры и бизнеса в {site.city} и области.
+          {site.coverage.patrolCount}+ экипажей ГБР, собственный мониторинговый центр,
+          монтаж за один день без пыли и проводов.
         </p>
-        <div class="flex flex-col gap-3 sm:flex-row">
+
+        <ul class="grid gap-2.5 sm:grid-cols-2">
+          {bullets.map((b) => (
+            <li class="flex items-start gap-3 rounded-card border border-border/70 bg-bg-elevated/40 px-4 py-3 backdrop-blur-sm">
+              <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent/15 text-accent">
+                <b.icon class="h-4 w-4" />
+              </span>
+              <span class="text-sm text-ink">{b.text}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Button variant="primary" size="lg" class="sm:w-auto">
             <span data-modal-open="modal-call">Заказать звонок</span>
           </Button>
-          <Button href="#calc" variant="secondary" size="lg" class="sm:w-auto">Рассчитать стоимость</Button>
+          <Button href="#services" variant="secondary" size="lg" class="sm:w-auto">
+            Посмотреть услуги
+          </Button>
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 text-sm text-ink-muted transition-colors hover:text-accent">
+            <Phone class="h-4 w-4 text-accent" />
+            {site.phone}
+          </a>
         </div>
 
-        <dl class="grid grid-cols-3 gap-6 border-t border-border pt-6">
+        <dl class="flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-border pt-6 text-sm">
           <div>
-            <dt class="text-xs uppercase tracking-widest text-ink-subtle">ГБР в городе</dt>
-            <dd class="mt-1 font-display text-xl text-ink">{site.gbrTimeCity}</dd>
+            <dt class="text-xs uppercase tracking-widest text-ink-subtle">Время отклика</dt>
+            <dd class="mt-1 font-display text-xl font-semibold text-ink">{site.gbrTimeCity}</dd>
           </div>
           <div>
-            <dt class="text-xs uppercase tracking-widest text-ink-subtle">Лицензия</dt>
-            <dd class="mt-1 font-display text-xl text-ink">МВД РФ</dd>
+            <dt class="text-xs uppercase tracking-widest text-ink-subtle">Объектов под охраной</dt>
+            <dd class="mt-1 font-display text-xl font-semibold text-ink">{site.coverage.objectsCount.toLocaleString("ru-RU")}+</dd>
           </div>
           <div>
-            <dt class="text-xs uppercase tracking-widest text-ink-subtle">Монтаж</dt>
-            <dd class="mt-1 font-display text-xl text-ink">за 1 день</dd>
+            <dt class="text-xs uppercase tracking-widest text-ink-subtle">Экипажей ГБР</dt>
+            <dd class="mt-1 font-display text-xl font-semibold text-ink">{site.coverage.patrolCount}+</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-widest text-ink-subtle">Мониторинг</dt>
+            <dd class="mt-1 font-display text-xl font-semibold text-ink">24/7</dd>
           </div>
         </dl>
       </div>
 
       <div class="relative">
-        <div class="absolute inset-0 -z-10 rounded-block bg-gradient-to-br from-accent/20 via-transparent to-brand/20 blur-2xl" />
-
-        <div class="relative mb-4 overflow-hidden rounded-block border border-border">
+        <div aria-hidden="true" class="absolute -inset-6 -z-10 rounded-block bg-gradient-to-br from-accent/25 via-transparent to-brand/15 blur-2xl"></div>
+        <div class="relative overflow-hidden rounded-block border border-border gradient-border">
           <img
-            src={url("images/hero/operator.jpg")}
-            alt="Оператор мониторингового центра за работой"
+            src={url("images/hero/camo-tactical.jpg")}
+            alt="Группа быстрого реагирования в тактической экипировке"
             width="1200"
-            height="720"
+            height="1500"
             loading="eager"
-            class="aspect-[16/10] w-full object-cover"
+            class="aspect-[4/5] w-full object-cover"
           />
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
-            <div>
-              <div class="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-bg/60 px-3 py-1 text-xs text-accent backdrop-blur">
-                <span class="flex h-2 w-2 animate-pulse rounded-full bg-accent"></span> Мониторинг 24/7
-              </div>
-              <div class="mt-2 font-display text-lg text-ink">Оператор смены #5</div>
-              <div class="text-xs text-ink-muted">наблюдает 1 240 объектов · 0 инцидентов</div>
-            </div>
-          </div>
-        </div>
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/20 to-transparent"></div>
 
-        <div class="rounded-block border border-border bg-bg-elevated/70 p-6 backdrop-blur-sm gradient-border">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="flex h-2.5 w-2.5 rounded-full bg-accent animate-pulse" />
-              <span class="text-xs uppercase tracking-widest text-ink-muted">Пульт online</span>
+          <div class="absolute left-4 right-4 top-4 flex items-center justify-between gap-2">
+            <div class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-bg/60 px-3 py-1 text-xs text-accent backdrop-blur">
+              <span class="flex h-2 w-2 animate-pulse rounded-full bg-accent"></span>
+              На дежурстве
             </div>
-            <span class="text-xs text-ink-subtle">#MCC-01</span>
-          </div>
-
-          <div class="mt-6 space-y-3">
-            <div class="flex items-start gap-3 rounded-card border border-border bg-bg/60 p-4">
-              <Zap class="mt-0.5 h-5 w-5 text-accent" />
-              <div>
-                <div class="text-sm font-medium text-ink">Тревога · Коттедж, Рублёво-Успенское ш.</div>
-                <div class="text-xs text-ink-muted">ГБР выдвинулся · ETA 6 мин · кодовое слово верифицируется</div>
-              </div>
-            </div>
-            <div class="flex items-start gap-3 rounded-card border border-border bg-bg/60 p-4">
-              <div class="mt-0.5 h-5 w-5 rounded-full border border-border" />
-              <div>
-                <div class="text-sm font-medium text-ink">Офис, Бизнес-центр «Плаза»</div>
-                <div class="text-xs text-ink-muted">На охране · последняя проверка 14:22</div>
-              </div>
-            </div>
-            <div class="flex items-start gap-3 rounded-card border border-border bg-bg/60 p-4">
-              <div class="mt-0.5 h-5 w-5 rounded-full border border-border" />
-              <div>
-                <div class="text-sm font-medium text-ink">Квартира · Пресненский р-н</div>
-                <div class="text-xs text-ink-muted">Снята с охраны · 13:48</div>
-              </div>
+            <div class="rounded-full border border-border bg-bg/60 px-3 py-1 text-[10px] uppercase tracking-widest text-ink-muted backdrop-blur">
+              ГБР-03
             </div>
           </div>
 
-          <div class="mt-6 grid grid-cols-3 gap-3 text-center">
-            <div class="rounded-card border border-border bg-bg/40 p-3">
-              <div class="font-display text-xl text-ink">12</div>
-              <div class="text-[10px] uppercase tracking-widest text-ink-subtle">ГБР в городе</div>
-            </div>
-            <div class="rounded-card border border-border bg-bg/40 p-3">
-              <div class="font-display text-xl text-ink">4</div>
-              <div class="text-[10px] uppercase tracking-widest text-ink-subtle">тревоги/24ч</div>
-            </div>
-            <div class="rounded-card border border-border bg-bg/40 p-3">
-              <div class="font-display text-xl text-ink">100%</div>
-              <div class="text-[10px] uppercase tracking-widest text-ink-subtle">uptime</div>
+          <div class="absolute inset-x-4 bottom-4 rounded-card border border-border bg-bg/75 p-4 backdrop-blur">
+            <div class="flex items-center gap-3">
+              <div class="grid h-10 w-10 shrink-0 place-items-center rounded-btn bg-accent/15 text-accent">
+                <ShieldCheck class="h-5 w-5" />
+              </div>
+              <div>
+                <div class="text-xs uppercase tracking-widest text-ink-subtle">Приоритет · тревожный сигнал</div>
+                <div class="mt-0.5 font-display font-semibold text-ink">Коттедж · Рублёво-Успенское ш.</div>
+              </div>
+              <div class="ml-auto text-right">
+                <div class="font-display text-lg font-semibold text-accent">ETA 6 мин</div>
+                <div class="text-[10px] uppercase tracking-widest text-ink-subtle">На маршруте</div>
+              </div>
             </div>
           </div>
         </div>
