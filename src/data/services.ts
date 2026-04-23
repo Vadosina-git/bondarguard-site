@@ -12,6 +12,7 @@ export interface ObjectTypeService {
   priceFrom: number;
   priceUnit: string;
   icon: "home" | "apartment" | "business" | "dacha";
+  image: string;
   heroKicker: string;
   benefits: { title: string; description: string }[];
   includes: string[];
@@ -33,6 +34,7 @@ export const objectServices: ObjectTypeService[] = [
     priceFrom: site.priceDomFrom,
     priceUnit: "₽/мес",
     icon: "home",
+    image: "images/scenes/cottage.jpg",
     heroKicker: "Для загородной недвижимости",
     benefits: [
       { title: "ГБР за 10–15 минут в области", description: "Сеть экипажей в ключевых направлениях Подмосковья, 24/7." },
@@ -73,6 +75,7 @@ export const objectServices: ObjectTypeService[] = [
     priceFrom: site.priceKvartiraFrom,
     priceUnit: "₽/мес",
     icon: "apartment",
+    image: "images/scenes/apartment.jpg",
     heroKicker: "Для квартир в ЖК и домах",
     benefits: [
       { title: "Монтаж за 2 часа", description: "Без пыли, без штробы. Беспроводные датчики с автономностью 3–5 лет." },
@@ -111,6 +114,7 @@ export const objectServices: ObjectTypeService[] = [
     priceFrom: site.priceBiznesFrom,
     priceUnit: "₽/мес",
     icon: "business",
+    image: "images/scenes/business.jpg",
     heroKicker: "Для коммерческих объектов",
     benefits: [
       { title: "Тревожная кнопка", description: "Стационарная и мобильная. Приезжаем на беззвучный вызов без лишних вопросов." },
@@ -150,6 +154,7 @@ export const objectServices: ObjectTypeService[] = [
     priceFrom: site.priceDomFrom,
     priceUnit: "₽/мес",
     icon: "dacha",
+    image: "images/scenes/dacha.jpg",
     heroKicker: "Для садовых товариществ и коттеджных посёлков",
     benefits: [
       { title: "Сезонный тариф", description: "Уходите с дачи на зиму — платите минимум, приезжаем на тревогу." },

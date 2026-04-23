@@ -1,5 +1,6 @@
 ---
 import { AlertTriangle, Headset, Truck, CheckCircle2 } from "@lucide/astro";
+import { url } from "@lib/url";
 
 const steps = [
   { icon: AlertTriangle, title: "Срабатывание тревоги", text: "Датчик фиксирует событие, сигнал мгновенно уходит на пульт по основному и резервному каналам." },
@@ -9,7 +10,11 @@ const steps = [
 ];
 ---
 
-<section class="section bg-bg-elevated/30 border-y border-border" id="how">
+<section class="relative section border-y border-border overflow-hidden" id="how">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-25">
+    <img src={url("images/scenes/patrol.jpg")} alt="" width="1600" height="900" loading="lazy" class="h-full w-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-b from-bg via-bg/80 to-bg"></div>
+  </div>
   <div class="container-tight">
     <div class="mb-12 max-w-2xl" data-reveal>
       <span class="eyebrow">Как работаем</span>

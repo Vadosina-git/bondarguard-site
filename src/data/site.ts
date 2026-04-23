@@ -7,8 +7,8 @@ export const site = {
   city: "Москва",
   region: "Московская область",
 
-  phone: "+7 (495) 000-00-00",
-  phoneTel: "+74950000000",
+  phone: "+7 (910) 445-68-43",
+  phoneTel: "+79104456843",
   email: "info@bondarguard.ru",
   address: "г. Москва, ул. Примерная, 1",
   workingHours: "Пн–Вс, круглосуточно",
