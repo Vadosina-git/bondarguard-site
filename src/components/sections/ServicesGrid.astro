@@ -1,0 +1,43 @@
+---
+import { serviceTypes } from "@data/service-types";
+import { url } from "@lib/url";
+import { ArrowUpRight } from "@lucide/astro";
+---
+
+<section class="section" data-reveal>
+  <div class="container-tight">
+    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div class="max-w-2xl">
+        <span class="eyebrow">Услуги</span>
+        <h2 class="mt-4 font-display text-display-lg text-ink">Что мы делаем</h2>
+      </div>
+      <p class="max-w-md text-ink-muted">Пять направлений в одном окне — от пульта и сигнализации до пожарных систем и видеонаблюдения.</p>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {serviceTypes.map((s, i) => (
+        <a
+          href={url(s.url)}
+          class={`group relative overflow-hidden rounded-card border border-border bg-bg-elevated/60 transition-all duration-300 ease-out-quart hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-glow ${i === 0 ? "lg:col-span-2 lg:row-span-2" : ""}`}
+        >
+          <div class="relative overflow-hidden" style={i === 0 ? "aspect-ratio: 16/11" : "aspect-ratio: 16/9"}>
+            <img src={url(s.image)} alt={s.title} width="1200" height="750" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 ease-out-quart group-hover:scale-[1.04]" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-elevated via-bg-elevated/50 to-transparent"></div>
+            <div class="absolute left-4 top-4 inline-flex rounded-full border border-accent/30 bg-bg/50 px-2.5 py-0.5 text-[10px] uppercase tracking-widest text-accent backdrop-blur">
+              {s.kicker}
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-4 p-5">
+            <div>
+              <div class="font-display text-xl text-ink">{s.title}</div>
+              <p class="mt-1 line-clamp-2 text-sm text-ink-muted">{s.subtitle}</p>
+            </div>
+            <span class="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-btn border border-border text-ink-muted transition-colors group-hover:border-accent group-hover:text-accent">
+              <ArrowUpRight class="h-4 w-4" />
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

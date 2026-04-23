@@ -4,6 +4,7 @@ import LocalBusinessJsonLd from "@components/seo/LocalBusinessJsonLd.astro";
 import Hero from "@components/sections/Hero.astro";
 import TrustBar from "@components/sections/TrustBar.astro";
 import ServiceTiles from "@components/sections/ServiceTiles.astro";
+import ServicesGrid from "@components/sections/ServicesGrid.astro";
 import HowItWorks from "@components/sections/HowItWorks.astro";
 import Stats from "@components/sections/Stats.astro";
 import Coverage from "@components/sections/Coverage.astro";
@@ -25,15 +26,43 @@ const description = `Охрана домов, квартир и бизнеса �
 
   <Hero />
   <TrustBar />
-  <ServiceTiles />
-  <HowItWorks />
-  <Gallery />
-  <Stats />
-  <Coverage variant="country" />
-  <MobileApp />
+
+  <div class="surface-plain">
+    <ServiceTiles />
+  </div>
+
+  <div class="surface-tinted">
+    <ServicesGrid />
+  </div>
+
+  <div class="surface-plain">
+    <HowItWorks />
+  </div>
+
+  <div class="surface-tinted">
+    <Stats />
+    <Coverage variant="country" />
+  </div>
+
+  <div class="surface-plain">
+    <Gallery />
+  </div>
+
+  <div class="surface-tinted">
+    <MobileApp />
+  </div>
+
   <CTASection />
-  <TeamGrid />
+
+  <div class="surface-tinted">
+    <TeamGrid />
+  </div>
+
   <Reviews />
-  <FAQ />
+
+  <div class="surface-tinted">
+    <FAQ />
+  </div>
+
   <ConsultationForm />
 </BaseLayout>
