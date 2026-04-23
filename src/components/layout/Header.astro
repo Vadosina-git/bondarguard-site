@@ -36,7 +36,7 @@ import ThemeToggle from "./ThemeToggle.astro";
           <li class="relative group">
             {item.children ? (
               <>
-                <a href={url(item.href)} class="inline-flex items-center gap-1 rounded-btn px-3 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
+                <a href={url(item.href)} class="inline-flex items-center gap-1 whitespace-nowrap rounded-btn px-3 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
                   {item.label}
                   <ChevronDown class="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
                 </a>
@@ -52,7 +52,7 @@ import ThemeToggle from "./ThemeToggle.astro";
                 </div>
               </>
             ) : (
-              <a href={url(item.href)} class="rounded-btn px-3 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
+              <a href={url(item.href)} class="whitespace-nowrap rounded-btn px-3 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
                 {item.label}
               </a>
             )}
@@ -62,13 +62,13 @@ import ThemeToggle from "./ThemeToggle.astro";
     </nav>
 
     <div class="flex items-center gap-2 sm:gap-3">
-      <a href={`tel:${site.phoneTel}`} class="hidden items-center gap-2 rounded-btn px-2 py-1 text-sm font-semibold text-ink transition-colors hover:text-accent md:inline-flex">
+      <a href={`tel:${site.phoneTel}`} class="hidden items-center gap-2 whitespace-nowrap rounded-btn px-2 py-1 text-sm font-semibold text-ink transition-colors hover:text-accent md:inline-flex">
         <Phone class="h-4 w-4 text-accent" />
         <span class="hidden xl:inline">{site.phone}</span>
         <span class="xl:hidden">Позвонить</span>
       </a>
       <ThemeToggle class="hidden sm:grid" />
-      <Button variant="primary" size="sm" dataAction="open-call" class="hidden sm:inline-flex">
+      <Button variant="primary" size="sm" dataAction="open-call" class="hidden whitespace-nowrap sm:inline-flex">
         <span data-modal-open="modal-call">Заказать звонок</span>
       </Button>
 
