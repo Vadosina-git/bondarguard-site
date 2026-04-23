@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/ui/Button.astro";
+import { Home, MessageCircle } from "@lucide/astro";
+---
+
+<BaseLayout title="Страница не найдена" description="Запрошенная страница не найдена." noindex={true}>
+  <section class="container-tight flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
+    <div class="font-display text-[clamp(6rem,20vw,14rem)] font-semibold leading-none text-accent/30">404</div>
+    <h1 class="mt-2 font-display text-display-md text-ink">Не нашли страницу</h1>
+    <p class="mt-4 max-w-md text-ink-muted">Возможно, она переехала или её никогда не существовало. Попробуйте вернуться на главную или позвоните нам — подскажем.</p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <Button href="/" variant="primary" size="lg">
+        <Home class="h-4 w-4" />
+        На главную
+      </Button>
+      <Button variant="secondary" size="lg">
+        <MessageCircle class="h-4 w-4" />
+        <span data-modal-open="modal-call">Задать вопрос</span>
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

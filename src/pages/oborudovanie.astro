@@ -1,0 +1,66 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/sections/Breadcrumbs.astro";
+import BreadcrumbJsonLd from "@components/seo/BreadcrumbJsonLd.astro";
+import Card from "@components/ui/Card.astro";
+import Badge from "@components/ui/Badge.astro";
+import ConsultationForm from "@components/sections/ConsultationForm.astro";
+import { equipment, type EquipmentCategory } from "@data/equipment";
+
+const categoryLabels: Record<EquipmentCategory, string> = {
+  panel: "Контрольные панели",
+  sensor: "Датчики",
+  camera: "Видеонаблюдение",
+  access: "Тревожные кнопки",
+  fire: "Пожарные",
+};
+
+const grouped = (Object.keys(categoryLabels) as EquipmentCategory[]).map((cat) => ({
+  cat,
+  label: categoryLabels[cat],
+  items: equipment.filter((e) => e.category === cat),
+}));
+---
+
+<BaseLayout
+  title="Оборудование — охранные системы"
+  description="Каталог оборудования для охраны объектов: контрольные панели, датчики, камеры, тревожные кнопки. Подбираем под задачу, монтируем под ключ."
+>
+  <Breadcrumbs items={[{ name: "Оборудование", href: "/oborudovanie" }]} />
+  <BreadcrumbJsonLd items={[{ name: "Главная", href: "/" }, { name: "Оборудование", href: "/oborudovanie" }]} />
+
+  <section class="pt-8 pb-8">
+    <div class="container-tight max-w-3xl">
+      <span class="eyebrow">Каталог</span>
+      <h1 class="mt-4 font-display text-display-lg text-ink">Оборудование</h1>
+      <p class="mt-3 text-body-lg text-ink-muted">Беспроводные датчики, контрольные панели, камеры и тревожные кнопки. Используем проверенные бренды с поддержкой в России.</p>
+    </div>
+  </section>
+
+  <section class="section pt-4">
+    <div class="container-tight space-y-14">
+      {grouped.map((group) => (
+        <div data-reveal>
+          <div class="mb-6 flex items-end justify-between gap-4 border-b border-border pb-3">
+            <h2 class="font-display text-2xl text-ink">{group.label}</h2>
+            <Badge tone="neutral">{group.items.length} позиц{group.items.length === 1 ? "ия" : "ий"}</Badge>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {group.items.map((item) => (
+              <Card hover padding="md">
+                <div class="text-xs uppercase tracking-widest text-ink-subtle">{group.label}</div>
+                <div class="mt-2 font-display text-lg text-ink">{item.name}</div>
+                <p class="mt-2 text-sm text-ink-muted">{item.description}</p>
+                <ul class="mt-4 space-y-1 text-xs text-ink-subtle">
+                  {item.specs.map((s) => <li>· {s}</li>)}
+                </ul>
+              </Card>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <ConsultationForm />
+</BaseLayout>

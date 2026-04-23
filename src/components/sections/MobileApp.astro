@@ -1,0 +1,79 @@
+---
+import { Smartphone, Bell, Camera, Zap, ShieldCheck } from "@lucide/astro";
+
+const features = [
+  { icon: ShieldCheck, title: "Постановка в одно касание", text: "Включайте / снимайте охрану без звонков в диспетчерскую." },
+  { icon: Bell, title: "Push о каждом событии", text: "Кто поставил, кто снял, какой датчик сработал — всё в истории." },
+  { icon: Camera, title: "Камеры и аналитика", text: "Live-трансляция, архив, умные уведомления по движению." },
+];
+---
+
+<section class="section">
+  <div class="container-tight">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="relative mx-auto aspect-[9/16] w-full max-w-xs rounded-[2.5rem] border-[10px] border-bg-elevated bg-bg p-4 shadow-float" data-reveal>
+        <div class="absolute left-1/2 top-2 h-5 w-24 -translate-x-1/2 rounded-full bg-bg-elevated" />
+        <div class="flex h-full flex-col rounded-[1.75rem] bg-bg-elevated/50 p-4">
+          <div class="flex items-center justify-between pt-4">
+            <div class="text-xs text-ink-muted">9:41</div>
+            <div class="flex items-center gap-1 text-accent">
+              <span class="h-2 w-2 rounded-full bg-accent animate-pulse" />
+              <span class="text-xs">online</span>
+            </div>
+          </div>
+          <div class="mt-6">
+            <div class="text-xs uppercase tracking-widest text-ink-subtle">Коттедж, Рублёво</div>
+            <div class="font-display text-2xl text-ink">На охране</div>
+          </div>
+          <button type="button" class="mt-4 flex items-center justify-between rounded-btn bg-accent p-4 text-bg">
+            <div>
+              <div class="text-xs opacity-80">Главный объект</div>
+              <div class="font-semibold">Снять с охраны</div>
+            </div>
+            <Zap class="h-5 w-5" />
+          </button>
+          <div class="mt-4 space-y-2 text-xs">
+            <div class="flex items-center justify-between rounded-btn border border-border bg-bg p-3">
+              <span class="text-ink-muted">Двор · камера</span>
+              <span class="text-accent">live</span>
+            </div>
+            <div class="flex items-center justify-between rounded-btn border border-border bg-bg p-3">
+              <span class="text-ink-muted">Датчик периметра</span>
+              <span class="text-ink-subtle">OK</span>
+            </div>
+            <div class="flex items-center justify-between rounded-btn border border-border bg-bg p-3">
+              <span class="text-ink-muted">Протечка кухня</span>
+              <span class="text-ink-subtle">OK</span>
+            </div>
+          </div>
+          <div class="flex-1" />
+          <div class="flex items-center justify-around border-t border-border pt-3 text-ink-subtle">
+            <Smartphone class="h-4 w-4" />
+            <Bell class="h-4 w-4" />
+            <Camera class="h-4 w-4" />
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal>
+        <span class="eyebrow">Приложение</span>
+        <h2 class="mt-4 font-display text-display-lg text-ink">Управление объектом в одном окне</h2>
+        <p class="mt-3 text-ink-muted">iOS и Android. Постановка, история событий, камеры, режимы «дома / в отъезде».</p>
+
+        <ul class="mt-8 space-y-4">
+          {features.map((f) => (
+            <li class="flex items-start gap-4 rounded-card border border-border bg-bg-elevated/60 p-4">
+              <div class="grid h-10 w-10 shrink-0 place-items-center rounded-btn bg-accent/10 text-accent">
+                <f.icon class="h-5 w-5" />
+              </div>
+              <div>
+                <div class="font-display text-lg text-ink">{f.title}</div>
+                <p class="text-sm text-ink-muted">{f.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

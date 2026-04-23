@@ -1,0 +1,23 @@
+---
+export interface AccordionItem { question: string; answer: string; }
+export interface Props { items: AccordionItem[]; class?: string; }
+const { items, class: className = "" } = Astro.props;
+---
+
+<div class={`divide-y divide-border rounded-card border border-border bg-bg-elevated/40 ${className}`}>
+  {items.map((it) => (
+    <details class="group">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 text-left font-medium text-ink transition-colors hover:text-accent">
+        <span set:html={it.question} />
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-border text-ink-muted transition-transform group-open:rotate-45 group-open:border-accent group-open:text-accent">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </span>
+      </summary>
+      <div class="px-5 pb-5 text-ink-muted leading-relaxed">
+        <p set:html={it.answer} />
+      </div>
+    </details>
+  ))}
+</div>

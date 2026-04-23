@@ -1,0 +1,84 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/sections/Breadcrumbs.astro";
+import BreadcrumbJsonLd from "@components/seo/BreadcrumbJsonLd.astro";
+import LocalBusinessJsonLd from "@components/seo/LocalBusinessJsonLd.astro";
+import ConsultationForm from "@components/sections/ConsultationForm.astro";
+import Card from "@components/ui/Card.astro";
+import { Phone, Mail, MapPin, Clock, MessageCircle } from "@lucide/astro";
+import { site } from "@data/site";
+
+const title = `Контакты ${site.companyName}`;
+const description = `Адрес, телефон, режим работы. Заказать выезд специалиста для расчёта стоимости охраны в ${site.city}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <LocalBusinessJsonLd />
+  <Breadcrumbs items={[{ name: "Контакты", href: "/kontakty" }]} />
+  <BreadcrumbJsonLd items={[{ name: "Главная", href: "/" }, { name: "Контакты", href: "/kontakty" }]} />
+
+  <section class="pt-8 pb-12">
+    <div class="container-tight">
+      <span class="eyebrow">Контакты</span>
+      <h1 class="mt-4 font-display text-display-lg text-ink">Свяжитесь с нами</h1>
+      <p class="mt-3 max-w-2xl text-body-lg text-ink-muted">Отвечаем на телефон 24/7. На письма и заявки с сайта — в течение 15 минут в рабочее время, на следующее утро — ночью.</p>
+    </div>
+  </section>
+
+  <section class="section pt-0">
+    <div class="container-tight grid gap-6 lg:grid-cols-[1fr_1.4fr]">
+      <div class="space-y-4" data-reveal>
+        <Card padding="md" class="flex items-start gap-4">
+          <Phone class="mt-1 h-5 w-5 text-accent" />
+          <div>
+            <div class="text-xs uppercase tracking-widest text-ink-subtle">Телефон (24/7)</div>
+            <a href={`tel:${site.phoneTel}`} class="mt-1 block font-display text-xl text-ink hover:text-accent">{site.phone}</a>
+          </div>
+        </Card>
+        <Card padding="md" class="flex items-start gap-4">
+          <Mail class="mt-1 h-5 w-5 text-accent" />
+          <div>
+            <div class="text-xs uppercase tracking-widest text-ink-subtle">Email</div>
+            <a href={`mailto:${site.email}`} class="mt-1 block text-ink hover:text-accent">{site.email}</a>
+          </div>
+        </Card>
+        <Card padding="md" class="flex items-start gap-4">
+          <MapPin class="mt-1 h-5 w-5 text-accent" />
+          <div>
+            <div class="text-xs uppercase tracking-widest text-ink-subtle">Адрес</div>
+            <div class="mt-1 text-ink">{site.address}</div>
+          </div>
+        </Card>
+        <Card padding="md" class="flex items-start gap-4">
+          <Clock class="mt-1 h-5 w-5 text-accent" />
+          <div>
+            <div class="text-xs uppercase tracking-widest text-ink-subtle">Режим работы</div>
+            <div class="mt-1 text-ink">{site.workingHours}</div>
+          </div>
+        </Card>
+        <Card padding="md" class="flex items-start gap-4">
+          <MessageCircle class="mt-1 h-5 w-5 text-accent" />
+          <div>
+            <div class="text-xs uppercase tracking-widest text-ink-subtle">Мессенджеры</div>
+            <div class="mt-1 text-ink-muted">Telegram, WhatsApp, VK — ответим в течение 15 минут</div>
+          </div>
+        </Card>
+      </div>
+
+      <div class="overflow-hidden rounded-block border border-border" data-reveal>
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?ll=37.620393%2C55.753960&z=12"
+          width="100%"
+          height="560"
+          frameborder="0"
+          allowfullscreen="true"
+          loading="lazy"
+          title="Карта расположения офиса"
+          class="block"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <ConsultationForm />
+</BaseLayout>

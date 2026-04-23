@@ -1,0 +1,76 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "@components/sections/Breadcrumbs.astro";
+import ServiceHero from "@components/sections/ServiceHero.astro";
+import Benefits from "@components/sections/Benefits.astro";
+import EquipmentShowcase from "@components/sections/EquipmentShowcase.astro";
+import Process from "@components/sections/Process.astro";
+import FAQ from "@components/sections/FAQ.astro";
+import ConsultationForm from "@components/sections/ConsultationForm.astro";
+import CTASection from "@components/sections/CTASection.astro";
+import HowItWorks from "@components/sections/HowItWorks.astro";
+import BreadcrumbJsonLd from "@components/seo/BreadcrumbJsonLd.astro";
+import ServiceJsonLd from "@components/seo/ServiceJsonLd.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  breadcrumbs: { name: string; href: string }[];
+  heroKicker: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  priceFrom?: number;
+  priceUnit?: string;
+  intro?: string;
+  benefits: { title: string; description: string }[];
+  includes: string[];
+  additional: string[];
+  process: { step: string; description: string }[];
+  faq?: { question: string; answer: string }[];
+  serviceName: string;
+  serviceUrl: string;
+}
+
+const {
+  title,
+  description,
+  breadcrumbs,
+  heroKicker,
+  heroTitle,
+  heroSubtitle,
+  priceFrom,
+  priceUnit,
+  intro,
+  benefits,
+  includes,
+  additional,
+  process,
+  faq,
+  serviceName,
+  serviceUrl,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <Breadcrumbs items={breadcrumbs} />
+  <BreadcrumbJsonLd items={[{ name: "Главная", href: "/" }, ...breadcrumbs]} />
+  <ServiceJsonLd name={serviceName} description={description} priceFrom={priceFrom} url={serviceUrl} />
+
+  <ServiceHero kicker={heroKicker} title={heroTitle} subtitle={heroSubtitle} priceFrom={priceFrom} priceUnit={priceUnit} />
+
+  {intro && (
+    <section class="section pt-0">
+      <div class="container-tight max-w-3xl text-body-lg text-ink-muted" data-reveal>
+        {intro}
+      </div>
+    </section>
+  )}
+
+  <Benefits items={benefits} />
+  <EquipmentShowcase items={includes} extras={additional} />
+  <Process items={process} />
+  <HowItWorks />
+  {faq && <FAQ items={faq} />}
+  <CTASection />
+  <ConsultationForm />
+</BaseLayout>

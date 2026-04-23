@@ -1,0 +1,24 @@
+---
+import { site } from "@data/site";
+import { absoluteUrl } from "@lib/url";
+
+const data = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.companyName,
+  url: absoluteUrl(),
+  logo: absoluteUrl("/images/logos/logo-full.svg"),
+  telephone: site.phoneTel,
+  email: site.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address,
+    addressLocality: site.city,
+    addressRegion: site.region,
+    addressCountry: "RU",
+  },
+  foundingDate: String(site.yearFounded),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

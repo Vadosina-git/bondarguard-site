@@ -1,0 +1,49 @@
+---
+export interface Props { id: string; title?: string; }
+const { id, title } = Astro.props;
+---
+
+<dialog id={id} class="backdrop:bg-bg/80 backdrop:backdrop-blur-sm bg-transparent p-0 max-w-full max-h-full m-0 outline-none" data-modal>
+  <div class="fixed inset-0 flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-block border border-border bg-bg-elevated p-6 shadow-float" data-modal-content>
+      <div class="mb-4 flex items-start justify-between gap-4">
+        {title && <h3 class="font-display text-xl text-ink">{title}</h3>}
+        <button type="button" class="grid h-9 w-9 place-items-center rounded-full border border-border text-ink-muted transition-colors hover:border-accent hover:text-accent" data-modal-close aria-label="Закрыть">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <slot />
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const init = () => {
+    document.querySelectorAll<HTMLDialogElement>("dialog[data-modal]").forEach((dlg) => {
+      if ((dlg as any)._bound) return;
+      (dlg as any)._bound = true;
+      dlg.addEventListener("click", (e) => {
+        const content = dlg.querySelector("[data-modal-content]") as HTMLElement | null;
+        if (!content) return;
+        if (e.target instanceof Node && !content.contains(e.target)) dlg.close();
+      });
+      dlg.querySelectorAll<HTMLButtonElement>("[data-modal-close]").forEach((btn) => {
+        btn.addEventListener("click", () => dlg.close());
+      });
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((btn) => {
+      if ((btn as any)._bound) return;
+      (btn as any)._bound = true;
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-modal-open");
+        if (!target) return;
+        const dlg = document.getElementById(target) as HTMLDialogElement | null;
+        if (dlg && typeof dlg.showModal === "function") dlg.showModal();
+      });
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("astro:page-load", init);
+</script>

@@ -1,0 +1,47 @@
+---
+import Card from "@components/ui/Card.astro";
+import { Check } from "@lucide/astro";
+
+export interface Props {
+  items: string[];
+  title?: string;
+  eyebrow?: string;
+  extras?: string[];
+}
+
+const { items, title = "Состав стартового комплекта", eyebrow = "Оборудование", extras = [] } = Astro.props;
+---
+
+<section class="section bg-bg-elevated/30 border-y border-border">
+  <div class="container-tight">
+    <div class="mb-10 max-w-2xl" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="mt-4 font-display text-display-md text-ink">{title}</h2>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+      <Card padding="lg" data-reveal>
+        <div class="text-xs uppercase tracking-widest text-ink-subtle">Базовый комплект</div>
+        <ul class="mt-4 space-y-3">
+          {items.map((it) => (
+            <li class="flex items-start gap-3 text-ink">
+              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-accent/15 text-accent">
+                <Check class="h-3.5 w-3.5" />
+              </span>
+              <span>{it}</span>
+            </li>
+          ))}
+        </ul>
+      </Card>
+
+      {extras.length > 0 && (
+        <Card padding="lg" data-reveal>
+          <div class="text-xs uppercase tracking-widest text-ink-subtle">Дополнительно</div>
+          <ul class="mt-4 space-y-2 text-sm text-ink-muted">
+            {extras.map((it) => <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>{it}</li>)}
+          </ul>
+        </Card>
+      )}
+    </div>
+  </div>
+</section>

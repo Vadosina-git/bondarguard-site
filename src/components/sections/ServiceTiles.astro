@@ -1,0 +1,52 @@
+---
+import Card from "@components/ui/Card.astro";
+import Button from "@components/ui/Button.astro";
+import Badge from "@components/ui/Badge.astro";
+import { objectServices } from "@data/services";
+import { Home, Building2, Briefcase, TreePine, ArrowUpRight, Check } from "@lucide/astro";
+
+const iconMap = { home: Home, apartment: Building2, business: Briefcase, dacha: TreePine };
+---
+
+<section class="section" id="services">
+  <div class="container-tight">
+    <div class="mb-12 max-w-2xl" data-reveal>
+      <span class="eyebrow">Охраняем</span>
+      <h2 class="mt-4 font-display text-display-lg text-ink">По типу объекта</h2>
+      <p class="mt-3 text-ink-muted">Комплекты подобраны под сценарии использования. Смета фиксируется после бесплатного выезда инженера.</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {objectServices.map((svc) => {
+        const Icon = iconMap[svc.icon];
+        return (
+          <Card hover gradient class="flex flex-col" data-reveal>
+            <div class="flex items-start justify-between">
+              <div class="grid h-12 w-12 place-items-center rounded-btn bg-accent/10 text-accent">
+                <Icon class="h-6 w-6" />
+              </div>
+              <Badge tone="neutral">от {svc.priceFrom.toLocaleString("ru-RU")} {svc.priceUnit}</Badge>
+            </div>
+            <h3 class="mt-6 font-display text-2xl text-ink">{svc.shortTitle}</h3>
+            <p class="mt-1 text-sm text-ink-muted">{svc.subtitle}</p>
+
+            <ul class="mt-5 space-y-2 text-sm">
+              {svc.benefits.slice(0, 3).map((b) => (
+                <li class="flex items-start gap-2 text-ink-muted">
+                  <Check class="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                  <span>{b.title}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-6 flex-1" />
+            <Button href={svc.url} variant="secondary" size="md" class="justify-between">
+              Подробнее
+              <ArrowUpRight class="h-4 w-4" />
+            </Button>
+          </Card>
+        );
+      })}
+    </div>
+  </div>
+</section>

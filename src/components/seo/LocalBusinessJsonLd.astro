@@ -1,0 +1,35 @@
+---
+import { site } from "@data/site";
+import { absoluteUrl } from "@lib/url";
+
+const data = {
+  "@context": "https://schema.org",
+  "@type": "SecurityService",
+  name: site.companyName,
+  description: site.tagline,
+  url: absoluteUrl(),
+  image: absoluteUrl("/images/og/default.jpg"),
+  telephone: site.phoneTel,
+  email: site.email,
+  priceRange: "₽₽",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address,
+    addressLocality: site.city,
+    addressRegion: site.region,
+    addressCountry: "RU",
+  },
+  areaServed: [
+    { "@type": "City", name: site.city },
+    { "@type": "AdministrativeArea", name: site.region },
+  ],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    opens: "00:00",
+    closes: "23:59",
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

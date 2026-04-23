@@ -1,0 +1,27 @@
+---
+import Button from "@components/ui/Button.astro";
+import { site } from "@data/site";
+import { Phone } from "@lucide/astro";
+---
+
+<section class="section" data-reveal>
+  <div class="container-tight">
+    <div class="relative overflow-hidden rounded-block border border-border bg-gradient-to-br from-bg-elevated via-bg-elevated to-bg p-8 md:p-14">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-60" style="background-image: radial-gradient(ellipse 50% 60% at 100% 0%, rgb(var(--accent) / 0.18), transparent 60%), radial-gradient(ellipse 50% 50% at 0% 100%, rgb(var(--brand) / 0.14), transparent 60%);" />
+      <div class="relative grid gap-6 md:grid-cols-[1.5fr_1fr] md:items-center">
+        <div>
+          <h2 class="font-display text-display-md text-ink">Не знаете, с чего начать?</h2>
+          <p class="mt-3 max-w-lg text-ink-muted">Позвоните — за 5 минут разберёмся в задаче и предложим минимально достаточный комплект. Без навязывания дорогого оборудования.</p>
+        </div>
+        <div class="flex flex-col gap-3 md:items-end">
+          <Button variant="primary" size="lg">
+            <span data-modal-open="modal-call">Заказать звонок</span>
+          </Button>
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-accent">
+            <Phone class="h-4 w-4 text-accent" /> {site.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

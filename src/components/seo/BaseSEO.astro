@@ -1,0 +1,73 @@
+---
+import { SEO } from "astro-seo";
+import { site } from "@data/site";
+import { url, absoluteUrl } from "@lib/url";
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = "/images/og/default.jpg",
+  noindex = false,
+  type = "website",
+} = Astro.props;
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, import.meta.env.SITE).toString();
+const ogImageAbsolute = ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage);
+const fullTitle = title.includes(site.companyName) ? title : `${title} — ${site.companyName}`;
+---
+
+<SEO
+  title={fullTitle}
+  description={description}
+  canonical={canonicalUrl}
+  noindex={noindex}
+  openGraph={{
+    basic: {
+      title: fullTitle,
+      type,
+      image: ogImageAbsolute,
+      url: canonicalUrl,
+    },
+    optional: {
+      description,
+      siteName: site.companyName,
+      locale: "ru_RU",
+    },
+    image: {
+      width: 1200,
+      height: 630,
+      alt: site.companyName,
+    },
+  }}
+  twitter={{
+    card: "summary_large_image",
+    title: fullTitle,
+    description,
+    image: ogImageAbsolute,
+  }}
+  extend={{
+    meta: [
+      { name: "theme-color", content: "#0B0F17" },
+      { name: "format-detection", content: "telephone=no" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "yandex-verification", content: "" },
+      { name: "google-site-verification", content: "" },
+    ],
+    link: [
+      { rel: "icon", type: "image/svg+xml", href: url("favicon.svg") },
+      { rel: "apple-touch-icon", href: url("apple-touch-icon.png") },
+      { rel: "manifest", href: url("manifest.webmanifest") },
+      { rel: "sitemap", type: "application/xml", href: url("sitemap-index.xml") },
+    ],
+  }}
+/>

@@ -1,0 +1,76 @@
+---
+import { reviews } from "@data/reviews";
+import Card from "@components/ui/Card.astro";
+import { Star, ChevronLeft, ChevronRight } from "@lucide/astro";
+---
+
+<section class="section bg-bg-elevated/30 border-y border-border">
+  <div class="container-tight">
+    <div class="mb-10 flex items-end justify-between gap-4" data-reveal>
+      <div class="max-w-2xl">
+        <span class="eyebrow">Отзывы</span>
+        <h2 class="mt-4 font-display text-display-lg text-ink">Говорят клиенты</h2>
+      </div>
+      <div class="hidden gap-2 md:flex">
+        <button type="button" class="grid h-10 w-10 place-items-center rounded-btn border border-border text-ink transition-colors hover:border-accent hover:text-accent" data-reviews-prev aria-label="Предыдущий отзыв">
+          <ChevronLeft class="h-5 w-5" />
+        </button>
+        <button type="button" class="grid h-10 w-10 place-items-center rounded-btn border border-border text-ink transition-colors hover:border-accent hover:text-accent" data-reviews-next aria-label="Следующий отзыв">
+          <ChevronRight class="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+
+    <div class="overflow-hidden" data-embla>
+      <div class="flex gap-4" data-embla-container>
+        {reviews.map((r) => (
+          <div class="min-w-0 flex-[0_0_100%] sm:flex-[0_0_60%] lg:flex-[0_0_40%]">
+            <Card padding="lg" class="h-full">
+              <div class="flex gap-1 text-accent">
+                {Array.from({ length: r.rating }).map(() => <Star class="h-4 w-4 fill-current" />)}
+              </div>
+              <p class="mt-4 text-ink leading-relaxed">«{r.text}»</p>
+              <div class="mt-6 border-t border-border pt-4">
+                <div class="font-display text-ink">{r.author}</div>
+                <div class="text-xs text-ink-muted">{r.role}</div>
+              </div>
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import EmblaCarousel from "embla-carousel";
+
+  const init = () => {
+    document.querySelectorAll<HTMLElement>("[data-embla]").forEach((root) => {
+      if ((root as any)._embla) return;
+      const container = root.querySelector<HTMLElement>("[data-embla-container]");
+      if (!container) return;
+
+      const embla = EmblaCarousel(root, {
+        loop: true,
+        align: "start",
+        containScroll: "trimSnaps",
+        slidesToScroll: 1,
+      });
+      (root as any)._embla = embla;
+
+      const section = root.closest("section");
+      section?.querySelector<HTMLButtonElement>("[data-reviews-prev]")?.addEventListener("click", () => embla.scrollPrev());
+      section?.querySelector<HTMLButtonElement>("[data-reviews-next]")?.addEventListener("click", () => embla.scrollNext());
+
+      let timer: any = null;
+      const autoplay = () => { timer = setInterval(() => embla.scrollNext(), 6000); };
+      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+      autoplay();
+      root.addEventListener("mouseenter", stop);
+      root.addEventListener("mouseleave", autoplay);
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", init);
+</script>

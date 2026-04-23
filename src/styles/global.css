@@ -1,0 +1,141 @@
+@import "@fontsource-variable/unbounded/index.css";
+@import "@fontsource-variable/manrope/index.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* premium-dark tokens (from CLAUDE.md §5.1) */
+    --bg: 11 15 23;            /* #0B0F17 */
+    --bg-elevated: 19 24 38;    /* #131826 */
+    --bg-muted: 26 32 48;       /* slightly lighter panel */
+    --ink: 242 244 248;         /* #F2F4F8 */
+    --ink-muted: 154 163 178;   /* #9AA3B2 */
+    --ink-subtle: 109 118 133;
+    --accent: 0 212 170;        /* #00D4AA */
+    --accent-strong: 0 180 144;
+    --brand: 62 142 255;        /* #3E8EFF */
+    --border: 48 58 82;
+    --border-strong: 72 86 118;
+    --success: 0 200 140;
+    --danger: 240 92 92;
+  }
+
+  html {
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg text-ink font-body;
+    font-feature-settings: "cv11", "ss01", "ss03";
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgb(var(--accent) / 0.05), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgb(var(--brand) / 0.04), transparent 70%);
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+    font-weight: 600;
+  }
+
+  a {
+    @apply text-ink transition-colors duration-150;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track { background: rgb(var(--bg)); }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--border-strong));
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--ink-subtle)); }
+
+  hr {
+    @apply border-border;
+  }
+}
+
+@layer components {
+  .container-tight { @apply mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8; }
+
+  .section { @apply py-section; }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-bg-elevated px-3 py-1 text-xs uppercase tracking-widest text-ink-muted;
+  }
+
+  .link-underline {
+    @apply relative text-ink transition-colors hover:text-accent;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute left-0 -bottom-0.5 h-px w-0 bg-accent transition-[width] duration-300 ease-out-quart;
+  }
+  .link-underline:hover::after { @apply w-full; }
+
+  .skip-link {
+    @apply fixed top-2 left-2 z-[100] -translate-y-20 rounded-btn bg-accent px-4 py-2 font-medium text-bg transition-transform focus:translate-y-0;
+  }
+
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgb(var(--accent) / 0.5), rgb(var(--border) / 0.3) 40%, rgb(var(--brand) / 0.4));
+    -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .prose-site {
+    @apply text-ink-muted leading-relaxed;
+  }
+  .prose-site h2 { @apply text-display-sm text-ink mt-12 mb-4; }
+  .prose-site h3 { @apply text-2xl text-ink mt-8 mb-3 font-display; }
+  .prose-site p { @apply my-4; }
+  .prose-site ul { @apply my-4 list-disc pl-6 space-y-1; }
+  .prose-site ol { @apply my-4 list-decimal pl-6 space-y-1; }
+  .prose-site a { @apply text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent; }
+  .prose-site code { @apply rounded bg-bg-elevated px-1.5 py-0.5 text-sm text-ink; }
+  .prose-site blockquote { @apply border-l-2 border-accent/50 pl-4 italic text-ink; }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+}
+
+/* prefers-reduced-motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

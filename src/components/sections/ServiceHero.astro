@@ -1,0 +1,37 @@
+---
+import Button from "@components/ui/Button.astro";
+import { Shield } from "@lucide/astro";
+import { site } from "@data/site";
+
+export interface Props {
+  kicker: string;
+  title: string;
+  subtitle: string;
+  priceFrom?: number;
+  priceUnit?: string;
+}
+
+const { kicker, title, subtitle, priceFrom, priceUnit } = Astro.props;
+---
+
+<section class="relative overflow-hidden pt-10 pb-16 lg:pt-14 lg:pb-20" data-reveal>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-70" style="background-image: radial-gradient(ellipse 50% 40% at 90% 10%, rgb(var(--accent) / 0.14), transparent 65%);"></div>
+  <div class="container-tight">
+    <span class="eyebrow"><Shield class="h-3.5 w-3.5 text-accent" /> {kicker}</span>
+    <h1 class="mt-4 max-w-4xl font-display text-display-lg text-ink">{title}</h1>
+    <p class="mt-4 max-w-2xl text-body-lg text-ink-muted">{subtitle}</p>
+
+    <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+      <Button variant="primary" size="lg">
+        <span data-modal-open="modal-call">Заказать звонок</span>
+      </Button>
+      {priceFrom && (
+        <div class="rounded-btn border border-border bg-bg-elevated/60 px-4 py-2 text-sm">
+          <span class="text-ink-subtle">Тариф от</span>
+          <span class="ml-2 font-display text-ink">{priceFrom.toLocaleString("ru-RU")} {priceUnit ?? "₽/мес"}</span>
+        </div>
+      )}
+      <a href={`tel:${site.phoneTel}`} class="text-sm text-ink-muted hover:text-accent">или позвоните: {site.phone}</a>
+    </div>
+  </div>
+</section>

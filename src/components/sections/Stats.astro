@@ -1,0 +1,20 @@
+---
+import Counter from "@components/ui/Counter.astro";
+import { site } from "@data/site";
+
+const yearsOnMarket = new Date().getFullYear() - site.yearFounded;
+const stats = [
+  { value: 1200, suffix: "+", label: "Объектов под охраной" },
+  { value: yearsOnMarket, suffix: "", label: `лет на рынке · с ${site.yearFounded}` },
+  { value: 5, suffix: " мин", label: "Медианный отклик ГБР в городе" },
+  { value: 24, suffix: "/7", label: "Дежурство мониторингового центра" },
+];
+---
+
+<section class="section">
+  <div class="container-tight">
+    <div class="grid gap-6 rounded-block border border-border bg-bg-elevated/40 p-8 md:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {stats.map((s) => <Counter value={s.value} suffix={s.suffix} label={s.label} />)}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,85 @@
+---
+import { site } from "@data/site";
+import { mainNav } from "@data/navigation";
+import { url } from "@lib/url";
+import { Phone, ChevronDown } from "@lucide/astro";
+import Button from "@components/ui/Button.astro";
+import MobileMenu from "./MobileMenu.astro";
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-50 border-b border-transparent bg-bg/70 backdrop-blur-lg transition-[border-color,padding] duration-300 data-[scrolled]:border-border"
+>
+  <div class="container-tight flex h-16 items-center justify-between gap-6 lg:h-20">
+    <a href={url()} class="flex items-center gap-3" aria-label={site.companyName}>
+      <img src={url("images/logos/logo-full.svg")} alt={site.companyName} class="hidden h-10 w-auto lg:block" width="260" height="56" />
+      <img src={url("images/logos/logo-short.svg")} alt={site.companyName} class="h-9 w-auto lg:hidden" width="180" height="56" />
+    </a>
+
+    <nav aria-label="Главная навигация" class="hidden flex-1 items-center justify-center lg:flex">
+      <ul class="flex items-center gap-1">
+        {mainNav.map((item) => (
+          <li class="relative group">
+            {item.children ? (
+              <>
+                <a href={url(item.href)} class="inline-flex items-center gap-1 rounded-btn px-3 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
+                  {item.label}
+                  <ChevronDown class="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+                </a>
+                <div class="invisible absolute left-1/2 top-full z-10 w-72 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                  <div class="rounded-card border border-border bg-bg-elevated p-2 shadow-float">
+                    {item.children.map((child) => (
+                      <a href={url(child.href)} class="block rounded-btn px-3 py-2 transition-colors hover:bg-bg">
+                        <div class="text-sm font-medium text-ink">{child.label}</div>
+                        {child.description && <div class="text-xs text-ink-muted">{child.description}</div>}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <a href={url(item.href)} class="rounded-btn px-3 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink">
+                {item.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href={`tel:${site.phoneTel}`} class="hidden items-center gap-2 rounded-btn px-2 py-1 text-sm font-semibold text-ink transition-colors hover:text-accent md:inline-flex">
+        <Phone class="h-4 w-4 text-accent" />
+        <span class="hidden xl:inline">{site.phone}</span>
+        <span class="xl:hidden">Позвонить</span>
+      </a>
+      <Button variant="primary" size="sm" dataAction="open-call" class="hidden sm:inline-flex">
+        <span data-modal-open="modal-call">Заказать звонок</span>
+      </Button>
+
+      <button
+        type="button"
+        class="grid h-11 w-11 place-items-center rounded-btn border border-border text-ink lg:hidden"
+        aria-label="Открыть меню"
+        data-mobile-menu-open
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<MobileMenu />
+
+<script>
+  const header = document.getElementById("site-header");
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 10) header.setAttribute("data-scrolled", "");
+      else header.removeAttribute("data-scrolled");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>

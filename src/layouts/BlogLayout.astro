@@ -1,0 +1,55 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "@components/sections/Breadcrumbs.astro";
+import BreadcrumbJsonLd from "@components/seo/BreadcrumbJsonLd.astro";
+import ArticleJsonLd from "@components/seo/ArticleJsonLd.astro";
+import CTASection from "@components/sections/CTASection.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updated?: Date;
+  image?: string;
+  tags?: string[];
+  slug: string;
+}
+
+const { title, description, date, updated, image, tags = [], slug } = Astro.props;
+
+const fmt = (d: Date) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
+const iso = (d: Date) => d.toISOString();
+
+const pageUrl = `/blog/${slug}`;
+---
+
+<BaseLayout title={title} description={description} ogImage={image} type="article">
+  <Breadcrumbs items={[{ name: "Блог", href: "/blog" }, { name: title, href: pageUrl }]} />
+  <BreadcrumbJsonLd items={[{ name: "Главная", href: "/" }, { name: "Блог", href: "/blog" }, { name: title, href: pageUrl }]} />
+  <ArticleJsonLd
+    title={title}
+    description={description}
+    image={image}
+    datePublished={iso(date)}
+    dateModified={updated ? iso(updated) : undefined}
+    url={pageUrl}
+  />
+
+  <article class="container-tight pt-8 pb-section">
+    <header class="mx-auto max-w-3xl">
+      <div class="flex items-center gap-2 text-xs text-ink-muted">
+        <time datetime={iso(date)}>{fmt(date)}</time>
+        {tags.length > 0 && <span aria-hidden="true">·</span>}
+        {tags.map((t) => <span class="rounded-full border border-border px-2 py-0.5">{t}</span>)}
+      </div>
+      <h1 class="mt-4 font-display text-display-lg text-ink">{title}</h1>
+      <p class="mt-4 text-body-lg text-ink-muted">{description}</p>
+    </header>
+
+    <div class="mx-auto mt-12 max-w-3xl prose-site">
+      <slot />
+    </div>
+  </article>
+
+  <CTASection />
+</BaseLayout>

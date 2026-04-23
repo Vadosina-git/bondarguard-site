@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/sections/Breadcrumbs.astro";
+import BreadcrumbJsonLd from "@components/seo/BreadcrumbJsonLd.astro";
+import Card from "@components/ui/Card.astro";
+import Button from "@components/ui/Button.astro";
+import Badge from "@components/ui/Badge.astro";
+import ConsultationForm from "@components/sections/ConsultationForm.astro";
+import FAQ from "@components/sections/FAQ.astro";
+import { Check } from "@lucide/astro";
+import { tariffs } from "@data/tariffs";
+import { site } from "@data/site";
+
+const title = `Тарифы на охрану в ${site.city}`;
+const description = `Прозрачные тарифы на пультовую охрану. Квартиры от ${site.priceKvartiraFrom} ₽, дома от ${site.priceDomFrom} ₽, бизнес от ${site.priceBiznesFrom} ₽ в месяц.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Breadcrumbs items={[{ name: "Тарифы", href: "/tarify" }]} />
+  <BreadcrumbJsonLd items={[{ name: "Главная", href: "/" }, { name: "Тарифы", href: "/tarify" }]} />
+
+  <section class="pt-8 pb-12">
+    <div class="container-tight max-w-3xl">
+      <span class="eyebrow">Тарифы</span>
+      <h1 class="mt-4 font-display text-display-lg text-ink">Абонплата — фиксированная и без скрытых платежей</h1>
+      <p class="mt-3 text-body-lg text-ink-muted">
+        Первый и второй ложный вызов в месяц — бесплатно. ГБР по договору, без «лимита выездов». Монтаж — отдельно, считается по объекту.
+      </p>
+    </div>
+  </section>
+
+  <section class="section pt-0">
+    <div class="container-tight">
+      <div class="grid gap-6 lg:grid-cols-3">
+        {tariffs.map((t) => (
+          <Card
+            padding="lg"
+            hover
+            gradient={t.highlight}
+            class={t.highlight ? "border-accent/50 bg-bg-elevated/80" : ""}
+            data-reveal
+          >
+            <div class="flex items-center justify-between">
+              <div class="font-display text-2xl text-ink">{t.label}</div>
+              {t.badge && <Badge tone="accent">{t.badge}</Badge>}
+            </div>
+            <div class="mt-1 text-sm text-ink-muted">{t.target}</div>
+
+            <div class="mt-6 flex items-baseline gap-2">
+              <span class="text-sm text-ink-subtle">от</span>
+              <span class="font-display text-display-md text-ink">{t.priceFrom.toLocaleString("ru-RU")}</span>
+              <span class="text-sm text-ink-muted">{t.unit}</span>
+            </div>
+
+            <ul class="mt-6 space-y-2.5 text-sm">
+              {t.features.map((f) => (
+                <li class="flex items-start gap-2 text-ink-muted">
+                  <Check class="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Button variant={t.highlight ? "primary" : "secondary"} size="md" class="mt-8 w-full">
+              <span data-modal-open="modal-call">{t.cta}</span>
+            </Button>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-bg-elevated/30 border-y border-border">
+    <div class="container-tight max-w-3xl" data-reveal>
+      <span class="eyebrow">Что ещё влияет на стоимость</span>
+      <h2 class="mt-4 font-display text-display-sm text-ink">Монтаж и расширения</h2>
+      <ul class="mt-6 space-y-2 text-ink-muted">
+        <li>— Монтаж базовой сигнализации для квартиры: 15 000–25 000 ₽.</li>
+        <li>— Монтаж для дома / коттеджа: от 35 000 ₽ в зависимости от площади и количества входов.</li>
+        <li>— Комплекс для бизнеса: смета составляется индивидуально после ТЗ.</li>
+        <li>— Дополнительные датчики: 1 500–6 000 ₽ за штуку с установкой.</li>
+        <li>— IP-камеры: от 8 000 ₽ за камеру с монтажом и подключением.</li>
+      </ul>
+      <p class="mt-6 text-sm text-ink-subtle">Все цены ориентировочные. Точную смету фиксируем в договоре после бесплатного выезда инженера.</p>
+    </div>
+  </section>
+
+  <FAQ />
+  <ConsultationForm />
+</BaseLayout>

@@ -1,0 +1,100 @@
+---
+import "@styles/global.css";
+import BaseSEO from "@components/seo/BaseSEO.astro";
+import OrganizationJsonLd from "@components/seo/OrganizationJsonLd.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import StickyCTA from "@components/layout/StickyCTA.astro";
+import Modal from "@components/ui/Modal.astro";
+import PhoneInput from "@components/ui/PhoneInput.astro";
+import Input from "@components/ui/Input.astro";
+import Button from "@components/ui/Button.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  type?: "website" | "article";
+}
+
+const { title, description, canonical, ogImage, noindex, type } = Astro.props;
+import { site } from "@data/site";
+const ymId = site.analytics.yandexMetrikaId;
+---
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <BaseSEO
+    title={title}
+    description={description}
+    canonical={canonical}
+    ogImage={ogImage}
+    noindex={noindex}
+    type={type}
+  />
+  <OrganizationJsonLd />
+  <meta name="generator" content={Astro.generator} />
+</head>
+<body data-ym-id={ymId || undefined}>
+  <a href="#main" class="skip-link">Перейти к содержанию</a>
+
+  {ymId && (
+    <>
+      <script type="text/javascript" is:inline set:html={`
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(${JSON.stringify(Number(ymId))}, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+      `} />
+      <noscript>
+        <div>
+          <img src={`https://mc.yandex.ru/watch/${ymId}`} style="position:absolute; left:-9999px;" alt="" />
+        </div>
+      </noscript>
+    </>
+  )}
+
+  <Header />
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <Footer />
+  <StickyCTA />
+
+  <Modal id="modal-call" title="Заказать звонок">
+    <p class="mb-4 text-sm text-ink-muted">Оставьте номер — перезвоним в течение 15 минут в рабочее время.</p>
+    <form data-lead-form data-source="header-modal" class="space-y-3" novalidate>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" class="absolute -left-[9999px]" aria-hidden="true" />
+      <Input name="name" label="Имя" autocomplete="name" />
+      <PhoneInput />
+      <label class="flex items-start gap-2 text-xs text-ink-muted">
+        <input type="checkbox" name="consent" required class="mt-0.5 h-4 w-4 rounded border-border bg-bg text-accent" />
+        <span>Согласен на обработку персональных данных и политикой конфиденциальности.</span>
+      </label>
+      <Button type="submit" variant="primary" size="md" class="w-full">
+        <span data-btn-text>Заказать звонок</span>
+      </Button>
+      <p class="hidden text-sm text-success" data-form-success>Спасибо, мы скоро с вами свяжемся.</p>
+      <p class="hidden text-sm text-danger" data-form-error>Не удалось отправить. Попробуйте ещё раз или позвоните нам.</p>
+    </form>
+  </Modal>
+
+  <script>
+    import { initForms } from "@/scripts/form";
+    import { initScrollReveal } from "@/scripts/scroll-reveal";
+    import { initCounters } from "@/scripts/counter";
+    import { initLenis } from "@/scripts/lenis";
+    initLenis();
+    initForms();
+    initScrollReveal();
+    initCounters();
+  </script>
+</body>
+</html>

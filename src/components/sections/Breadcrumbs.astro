@@ -1,0 +1,31 @@
+---
+import { url as toUrl } from "@lib/url";
+import { ChevronRight, Home } from "@lucide/astro";
+
+export interface Crumb { name: string; href: string; }
+export interface Props { items: Crumb[]; }
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Хлебные крошки" class="container-tight pt-6">
+  <ol class="flex flex-wrap items-center gap-2 text-xs text-ink-muted">
+    <li>
+      <a href={toUrl("/")} class="inline-flex items-center gap-1 hover:text-accent" aria-label="Главная">
+        <Home class="h-3.5 w-3.5" />
+      </a>
+    </li>
+    {items.map((c, i) => (
+      <>
+        <li aria-hidden="true" class="text-ink-subtle"><ChevronRight class="h-3 w-3" /></li>
+        <li>
+          {i === items.length - 1 ? (
+            <span class="text-ink" aria-current="page">{c.name}</span>
+          ) : (
+            <a href={toUrl(c.href)} class="hover:text-accent">{c.name}</a>
+          )}
+        </li>
+      </>
+    ))}
+  </ol>
+</nav>

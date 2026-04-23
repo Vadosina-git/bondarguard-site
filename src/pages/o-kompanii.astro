@@ -1,0 +1,93 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/sections/Breadcrumbs.astro";
+import BreadcrumbJsonLd from "@components/seo/BreadcrumbJsonLd.astro";
+import TeamGrid from "@components/sections/TeamGrid.astro";
+import Stats from "@components/sections/Stats.astro";
+import CTASection from "@components/sections/CTASection.astro";
+import Card from "@components/ui/Card.astro";
+import { site } from "@data/site";
+import { FileCheck, Scale, Award } from "@lucide/astro";
+
+const title = `О компании ${site.companyName}`;
+const description = `Мы занимаемся охраной объектов в ${site.city} с ${site.yearFounded} года. Лицензия МВД, команда, партнёры.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Breadcrumbs items={[{ name: "О компании", href: "/o-kompanii" }]} />
+  <BreadcrumbJsonLd items={[{ name: "Главная", href: "/" }, { name: "О компании", href: "/o-kompanii" }]} />
+
+  <section class="pt-8 pb-12">
+    <div class="container-tight">
+      <div class="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+        <div data-reveal>
+          <span class="eyebrow">О компании</span>
+          <h1 class="mt-4 font-display text-display-lg text-ink">Частная охранная организация с фокусом на отклик и качество</h1>
+          <p class="mt-4 text-body-lg text-ink-muted">
+            {site.companyName} — охранное предприятие, работающее в {site.city} и {site.region}
+            с {site.yearFounded} года. Мы специализируемся на пультовой охране домов, квартир и бизнеса:
+            ставим сигнализацию, подключаем к своему мониторинговому центру, отправляем собственные группы быстрого реагирования.
+          </p>
+          <p class="mt-4 text-ink-muted">
+            Мы не крупнейшая компания на рынке — и сознательно не стремимся быть ею. Наш фокус: быстрые выезды, честные договорные условия, работающее обслуживание. Без бюрократии федералов и без экономии на экипажах, как у мелких частников.
+          </p>
+        </div>
+
+        <Card padding="lg" gradient data-reveal>
+          <div class="text-xs uppercase tracking-widest text-ink-subtle">Факты</div>
+          <dl class="mt-4 space-y-4">
+            <div class="flex items-center justify-between border-b border-border pb-3">
+              <dt class="text-ink-muted">Лицензия</dt>
+              <dd class="font-display text-ink">МВД РФ</dd>
+            </div>
+            <div class="flex items-center justify-between border-b border-border pb-3">
+              <dt class="text-ink-muted">Год основания</dt>
+              <dd class="font-display text-ink">{site.yearFounded}</dd>
+            </div>
+            <div class="flex items-center justify-between border-b border-border pb-3">
+              <dt class="text-ink-muted">ИНН</dt>
+              <dd class="font-mono text-ink">{site.inn}</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="text-ink-muted">ОГРН</dt>
+              <dd class="font-mono text-ink">{site.ogrn}</dd>
+            </div>
+          </dl>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <Stats />
+
+  <section class="section">
+    <div class="container-tight">
+      <div class="mb-10 max-w-2xl" data-reveal>
+        <span class="eyebrow">Документы</span>
+        <h2 class="mt-4 font-display text-display-md text-ink">Лицензии и подтверждения</h2>
+        <p class="mt-3 text-ink-muted">Разделы с реальными сканами документов появятся здесь после согласования реквизитов.</p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <Card hover padding="lg" data-reveal>
+          <FileCheck class="h-6 w-6 text-accent" />
+          <div class="mt-4 font-display text-lg text-ink">Лицензия МВД</div>
+          <p class="mt-2 text-sm text-ink-muted">Право на оказание охранных услуг, документ на согласовании.</p>
+        </Card>
+        <Card hover padding="lg" data-reveal>
+          <Scale class="h-6 w-6 text-accent" />
+          <div class="mt-4 font-display text-lg text-ink">Страхование ответственности</div>
+          <p class="mt-2 text-sm text-ink-muted">Полис на профессиональную ответственность — сумма будет указана после обновления.</p>
+        </Card>
+        <Card hover padding="lg" data-reveal>
+          <Award class="h-6 w-6 text-accent" />
+          <div class="mt-4 font-display text-lg text-ink">Партнёры и клиенты</div>
+          <p class="mt-2 text-sm text-ink-muted">Логотипы ключевых клиентов — на согласовании с партнёрами.</p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <TeamGrid />
+  <CTASection />
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+export interface Props {
+  class?: string;
+  padding?: "sm" | "md" | "lg";
+  hover?: boolean;
+  gradient?: boolean;
+  as?: string;
+}
+
+const { class: className = "", padding = "md", hover = false, gradient = false, as = "div" } = Astro.props;
+
+const padMap = { sm: "p-4", md: "p-6", lg: "p-8" };
+const hoverCls = hover
+  ? "transition-all duration-300 ease-out-quart hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow"
+  : "";
+
+const Tag = as as any;
+---
+
+<Tag
+  class={`relative rounded-card border border-border bg-bg-elevated/60 backdrop-blur-sm ${padMap[padding]} ${hoverCls} ${gradient ? "gradient-border" : ""} ${className}`}
+>
+  <slot />
+</Tag>

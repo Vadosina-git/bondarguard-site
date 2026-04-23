@@ -1,0 +1,25 @@
+---
+import ServiceLayout from "@layouts/ServiceLayout.astro";
+import { getServiceType } from "@data/service-types";
+
+const svc = getServiceType("pozharnaya-signalizatsiya")!;
+---
+
+<ServiceLayout
+  title={svc.metaTitle}
+  description={svc.metaDescription}
+  breadcrumbs={[{ name: "Услуги", href: "/pultovaya-ohrana" }, { name: "Пожарная сигнализация", href: svc.url }]}
+  heroKicker={svc.kicker}
+  heroTitle={svc.title}
+  heroSubtitle={svc.subtitle}
+  priceFrom={svc.priceFrom}
+  priceUnit={svc.priceUnit}
+  intro={svc.intro}
+  benefits={svc.benefits}
+  includes={svc.includes}
+  additional={svc.additional}
+  process={svc.process}
+  faq={svc.faq}
+  serviceName={svc.title}
+  serviceUrl={svc.url}
+/>

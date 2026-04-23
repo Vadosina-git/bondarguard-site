@@ -1,0 +1,24 @@
+---
+import Card from "@components/ui/Card.astro";
+
+export interface Benefit { title: string; description: string; }
+export interface Props { items: Benefit[]; eyebrow?: string; title?: string; }
+const { items, eyebrow = "Преимущества", title = "Что получаете" } = Astro.props;
+---
+
+<section class="section">
+  <div class="container-tight">
+    <div class="mb-10 max-w-2xl" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2 class="mt-4 font-display text-display-md text-ink">{title}</h2>
+    </div>
+    <div class="grid gap-6 md:grid-cols-3">
+      {items.map((b) => (
+        <Card hover data-reveal>
+          <div class="font-display text-xl text-ink">{b.title}</div>
+          <p class="mt-2 text-sm text-ink-muted">{b.description}</p>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+---
+import { site } from "@data/site";
+import { mainNav } from "@data/navigation";
+import { url } from "@lib/url";
+import { X, Phone } from "@lucide/astro";
+---
+
+<div id="mobile-menu" class="fixed inset-0 z-[60] invisible opacity-0 transition-all duration-300" aria-hidden="true">
+  <div class="absolute inset-0 bg-bg/80 backdrop-blur-md" data-mobile-menu-close></div>
+  <div class="absolute right-0 top-0 h-full w-full max-w-sm translate-x-full border-l border-border bg-bg-elevated p-6 transition-transform duration-300 ease-out-quart overflow-y-auto" data-mobile-menu-panel>
+    <div class="mb-6 flex items-center justify-between">
+      <img src={url("images/logos/logo-short.svg")} alt={site.companyName} class="h-8 w-auto" width="180" height="56" />
+      <button type="button" class="grid h-10 w-10 place-items-center rounded-btn border border-border text-ink" aria-label="Закрыть меню" data-mobile-menu-close>
+        <X class="h-5 w-5" />
+      </button>
+    </div>
+
+    <nav aria-label="Мобильная навигация">
+      <ul class="space-y-1">
+        {mainNav.map((item) => (
+          <li>
+            <a href={url(item.href)} class="block rounded-btn px-3 py-3 text-base font-medium text-ink transition-colors hover:bg-bg">
+              {item.label}
+            </a>
+            {item.children && (
+              <ul class="ml-3 border-l border-border pl-3">
+                {item.children.map((child) => (
+                  <li>
+                    <a href={url(child.href)} class="block rounded-btn px-3 py-2 text-sm text-ink-muted transition-colors hover:text-ink">
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="mt-8 space-y-3">
+      <a href={`tel:${site.phoneTel}`} class="flex items-center justify-center gap-2 rounded-btn border border-border px-4 py-3 text-base font-semibold text-ink">
+        <Phone class="h-4 w-4 text-accent" />
+        {site.phone}
+      </a>
+      <button type="button" class="w-full rounded-btn bg-accent px-4 py-3 text-base font-semibold text-bg" data-modal-open="modal-call">
+        Заказать звонок
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const init = () => {
+    const menu = document.getElementById("mobile-menu");
+    const panel = menu?.querySelector("[data-mobile-menu-panel]") as HTMLElement | null;
+    if (!menu || !panel) return;
+
+    const open = () => {
+      menu.classList.remove("invisible", "opacity-0");
+      menu.setAttribute("aria-hidden", "false");
+      panel.classList.remove("translate-x-full");
+      document.body.style.overflow = "hidden";
+    };
+    const close = () => {
+      panel.classList.add("translate-x-full");
+      menu.setAttribute("aria-hidden", "true");
+      setTimeout(() => {
+        menu.classList.add("invisible", "opacity-0");
+        document.body.style.overflow = "";
+      }, 300);
+    };
+
+    document.querySelectorAll("[data-mobile-menu-open]").forEach((b) => b.addEventListener("click", open));
+    document.querySelectorAll("[data-mobile-menu-close]").forEach((b) => b.addEventListener("click", close));
+    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu.classList.contains("invisible")) close();
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", init);
+</script>

@@ -1,0 +1,42 @@
+---
+export interface Props {
+  name: string;
+  type?: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  autocomplete?: string;
+  pattern?: string;
+  inputmode?: "text" | "numeric" | "tel" | "email";
+  class?: string;
+}
+
+const {
+  name,
+  type = "text",
+  label,
+  placeholder = " ",
+  required = false,
+  autocomplete,
+  pattern,
+  inputmode,
+  class: className = "",
+} = Astro.props;
+---
+
+<label class={`group relative block ${className}`}>
+  <input
+    name={name}
+    id={`field-${name}`}
+    type={type}
+    placeholder={placeholder}
+    required={required}
+    autocomplete={autocomplete}
+    pattern={pattern}
+    inputmode={inputmode}
+    class="peer h-14 w-full rounded-btn border border-border bg-bg-elevated/70 px-4 pt-5 pb-1 text-ink outline-none transition-colors placeholder:text-transparent focus:border-accent"
+  />
+  <span class="pointer-events-none absolute left-4 top-4 text-sm text-ink-muted transition-all peer-focus:-translate-y-2 peer-focus:text-xs peer-focus:text-accent peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:text-xs">
+    {label}{required && <span class="text-accent"> *</span>}
+  </span>
+</label>

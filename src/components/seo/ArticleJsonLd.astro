@@ -1,0 +1,35 @@
+---
+import { site } from "@data/site";
+import { absoluteUrl } from "@lib/url";
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  datePublished: string;
+  dateModified?: string;
+  author?: string;
+  url: string;
+}
+
+const { title, description, image, datePublished, dateModified, author = site.companyName, url: pageUrl } = Astro.props;
+
+const data = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  image: image ? absoluteUrl(image) : absoluteUrl("/images/og/default.jpg"),
+  datePublished,
+  dateModified: dateModified ?? datePublished,
+  author: { "@type": "Organization", name: author },
+  publisher: {
+    "@type": "Organization",
+    name: site.companyName,
+    logo: { "@type": "ImageObject", url: absoluteUrl("/images/logos/logo-full.svg") },
+  },
+  mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(pageUrl) },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

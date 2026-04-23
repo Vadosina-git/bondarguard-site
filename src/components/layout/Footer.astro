@@ -1,0 +1,48 @@
+---
+import { site } from "@data/site";
+import { footerNav } from "@data/navigation";
+import { url } from "@lib/url";
+import { Phone, Mail, MapPin, Clock } from "@lucide/astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-border bg-bg-elevated/30">
+  <div class="container-tight py-16">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr_1fr]">
+      <div>
+        <a href={url()} class="inline-flex items-center gap-3" aria-label={site.companyName}>
+          <img src={url("images/logos/logo-full.svg")} alt={site.companyName} class="h-10 w-auto" width="260" height="56" />
+        </a>
+        <p class="mt-4 max-w-xs text-sm text-ink-muted">{site.tagline}</p>
+
+        <ul class="mt-6 space-y-2 text-sm">
+          <li class="flex items-start gap-2 text-ink-muted"><Phone class="mt-0.5 h-4 w-4 text-accent shrink-0" /><a href={`tel:${site.phoneTel}`} class="hover:text-ink">{site.phone}</a></li>
+          <li class="flex items-start gap-2 text-ink-muted"><Mail class="mt-0.5 h-4 w-4 text-accent shrink-0" /><a href={`mailto:${site.email}`} class="hover:text-ink">{site.email}</a></li>
+          <li class="flex items-start gap-2 text-ink-muted"><MapPin class="mt-0.5 h-4 w-4 text-accent shrink-0" />{site.address}</li>
+          <li class="flex items-start gap-2 text-ink-muted"><Clock class="mt-0.5 h-4 w-4 text-accent shrink-0" />{site.workingHours}</li>
+        </ul>
+      </div>
+
+      {Object.values(footerNav).map((col) => (
+        <div>
+          <h3 class="text-sm font-display uppercase tracking-wider text-ink">{col.title}</h3>
+          <ul class="mt-4 space-y-2 text-sm">
+            {col.items.map((item) => (
+              <li><a href={url(item.href)} class="text-ink-muted transition-colors hover:text-accent">{item.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 flex flex-col justify-between gap-4 border-t border-border pt-8 text-xs text-ink-subtle md:flex-row">
+      <div>© {year} {site.companyName}. Все права защищены.</div>
+      <div class="flex flex-wrap items-center gap-4">
+        <span>ИНН: {site.inn}</span>
+        <span>ОГРН: {site.ogrn}</span>
+        <a href={url("/policy")} class="hover:text-ink">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </div>
+</footer>

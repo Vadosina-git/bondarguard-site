@@ -1,0 +1,26 @@
+---
+import { Phone } from "@lucide/astro";
+import { site } from "@data/site";
+---
+
+<a
+  id="sticky-cta"
+  href={`tel:${site.phoneTel}`}
+  class="fixed bottom-5 right-5 z-40 flex h-14 w-14 translate-y-24 items-center justify-center rounded-full bg-accent text-bg shadow-[0_10px_40px_-10px_rgb(var(--accent)/0.7)] transition-transform duration-500 ease-out-quart hover:scale-110 md:hidden"
+  data-sticky-cta
+  aria-label={`Позвонить ${site.phone}`}
+>
+  <Phone class="h-5 w-5" />
+</a>
+
+<script>
+  const el = document.getElementById("sticky-cta");
+  if (el) {
+    const onScroll = () => {
+      if (window.scrollY > 400) el.classList.remove("translate-y-24");
+      else el.classList.add("translate-y-24");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>

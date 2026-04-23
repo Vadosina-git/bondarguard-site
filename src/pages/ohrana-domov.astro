@@ -1,0 +1,26 @@
+---
+import ServiceLayout from "@layouts/ServiceLayout.astro";
+import { getObjectService } from "@data/services";
+import { faqGeneral } from "@data/faq";
+
+const svc = getObjectService("ohrana-domov")!;
+---
+
+<ServiceLayout
+  title={svc.metaTitle}
+  description={svc.metaDescription}
+  breadcrumbs={[{ name: "Охраняем", href: "/ohrana-domov" }, { name: "Дома и коттеджи", href: svc.url }]}
+  heroKicker={svc.heroKicker}
+  heroTitle={svc.title}
+  heroSubtitle={svc.subtitle}
+  priceFrom={svc.priceFrom}
+  priceUnit={svc.priceUnit}
+  intro={svc.intro}
+  benefits={svc.benefits}
+  includes={svc.includes}
+  additional={svc.additional}
+  process={svc.process}
+  faq={faqGeneral}
+  serviceName={svc.title}
+  serviceUrl={svc.url}
+/>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import LocalBusinessJsonLd from "@components/seo/LocalBusinessJsonLd.astro";
+import Hero from "@components/sections/Hero.astro";
+import TrustBar from "@components/sections/TrustBar.astro";
+import ServiceTiles from "@components/sections/ServiceTiles.astro";
+import HowItWorks from "@components/sections/HowItWorks.astro";
+import Stats from "@components/sections/Stats.astro";
+import MobileApp from "@components/sections/MobileApp.astro";
+import TeamGrid from "@components/sections/TeamGrid.astro";
+import Reviews from "@components/sections/Reviews.astro";
+import FAQ from "@components/sections/FAQ.astro";
+import ConsultationForm from "@components/sections/ConsultationForm.astro";
+import CTASection from "@components/sections/CTASection.astro";
+import { site } from "@data/site";
+
+const title = `Пультовая охрана в ${site.city} — ${site.companyName}`;
+const description = `Охрана домов, квартир и бизнеса в ${site.city} с выездом ГБР за ${site.gbrTimeCity}. Пультовая охрана, сигнализация, видеонаблюдение. Звоните: ${site.phone}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <LocalBusinessJsonLd />
+
+  <Hero />
+  <TrustBar />
+  <ServiceTiles />
+  <HowItWorks />
+  <Stats />
+  <MobileApp />
+  <CTASection />
+  <TeamGrid />
+  <Reviews />
+  <FAQ />
+  <ConsultationForm />
+</BaseLayout>

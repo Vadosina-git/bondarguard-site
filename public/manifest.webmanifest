@@ -1,0 +1,14 @@
+{
+  "name": "BONDAR’ GUARD",
+  "short_name": "BONDAR’",
+  "description": "Пультовая охрана домов, коттеджей и бизнеса",
+  "start_url": "/bondarguard-site/",
+  "scope": "/bondarguard-site/",
+  "display": "standalone",
+  "background_color": "#0B0F17",
+  "theme_color": "#0B0F17",
+  "icons": [
+    { "src": "/bondarguard-site/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/bondarguard-site/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
