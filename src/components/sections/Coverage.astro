@@ -1,0 +1,53 @@
+---
+import { site } from "@data/site";
+import { MapPin, Truck, Landmark } from "@lucide/astro";
+
+export interface Props {
+  variant?: "country" | "city";
+  eyebrow?: string;
+  title?: string;
+}
+
+const { variant = "country", eyebrow = "Покрытие", title } = Astro.props;
+const items = variant === "country" ? site.coverage.directions : site.coverage.districtsCovered;
+const defaultTitle = variant === "country" ? "Работаем по ключевым направлениям Подмосковья" : "Охватываем все округа Москвы";
+const heading = title ?? defaultTitle;
+---
+
+<section class="section">
+  <div class="container-tight">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr]" data-reveal>
+      <div>
+        <span class="eyebrow">{eyebrow}</span>
+        <h2 class="mt-4 font-display text-display-md text-ink">{heading}</h2>
+        <p class="mt-3 text-ink-muted">Распределённая сеть экипажей — ГБР выезжает на тревогу из ближайшей точки. Расписание обходов согласуется индивидуально по объекту.</p>
+
+        <dl class="mt-8 grid grid-cols-2 gap-4">
+          <div class="rounded-card border border-border bg-bg-elevated/50 p-4">
+            <div class="flex items-center gap-2 text-ink-subtle">
+              <Truck class="h-4 w-4 text-accent" />
+              <span class="text-xs uppercase tracking-widest">ГБР-экипажей</span>
+            </div>
+            <dd class="mt-2 font-display text-2xl text-ink">{site.coverage.patrolCount}+</dd>
+          </div>
+          <div class="rounded-card border border-border bg-bg-elevated/50 p-4">
+            <div class="flex items-center gap-2 text-ink-subtle">
+              <Landmark class="h-4 w-4 text-accent" />
+              <span class="text-xs uppercase tracking-widest">объектов</span>
+            </div>
+            <dd class="mt-2 font-display text-2xl text-ink">{site.coverage.objectsCount.toLocaleString("ru-RU")}+</dd>
+          </div>
+        </dl>
+      </div>
+
+      <ul class="grid grid-cols-2 gap-2 self-start">
+        {items.map((name) => (
+          <li class="flex items-center gap-2 rounded-btn border border-border bg-bg-elevated/40 px-4 py-3 text-sm text-ink">
+            <MapPin class="h-4 w-4 shrink-0 text-accent" />
+            <span>{name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

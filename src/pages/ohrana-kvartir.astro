@@ -1,5 +1,6 @@
 ---
 import ServiceLayout from "@layouts/ServiceLayout.astro";
+import Coverage from "@components/sections/Coverage.astro";
 import { getObjectService } from "@data/services";
 import { faqGeneral } from "@data/faq";
 
@@ -23,4 +24,6 @@ const svc = getObjectService("ohrana-kvartir")!;
   faq={faqGeneral}
   serviceName={svc.title}
   serviceUrl={svc.url}
-/>
+>
+  <Coverage slot="extra" variant="city" />
+</ServiceLayout>

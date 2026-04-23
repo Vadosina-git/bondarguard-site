@@ -32,6 +32,29 @@ export const site = {
     vk: "",
   },
 
+  app: {
+    placeholder: true,
+    appStore: "https://apps.apple.com/",
+    googlePlay: "https://play.google.com/store/apps",
+  },
+
+  coverage: {
+    placeholder: true,
+    directions: [
+      "Новорижское шоссе",
+      "Рублёво-Успенское шоссе",
+      "Минское шоссе",
+      "Киевское шоссе",
+      "Ленинградское шоссе",
+      "Дмитровское шоссе",
+      "Ярославское шоссе",
+      "Симферопольское шоссе",
+    ],
+    patrolCount: 18,
+    objectsCount: 1200,
+    districtsCovered: ["ЦАО", "ЗАО", "САО", "СЗАО", "ВАО", "СВАО", "ЮАО", "ЮЗАО", "ЮВАО"],
+  },
+
   contactReceiver: "mock" as "mock" | "formspree" | "api",
   formspreeEndpoint: "",
 

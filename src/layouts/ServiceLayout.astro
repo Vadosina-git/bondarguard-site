@@ -69,6 +69,7 @@ const {
   <Benefits items={benefits} />
   <EquipmentShowcase items={includes} extras={additional} />
   <Process items={process} />
+  <slot name="extra" />
   <HowItWorks />
   {faq && <FAQ items={faq} />}
   <CTASection />

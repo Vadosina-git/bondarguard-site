@@ -1,5 +1,6 @@
 ---
 import { Smartphone, Bell, Camera, Zap, ShieldCheck } from "@lucide/astro";
+import { site } from "@data/site";
 
 const features = [
   { icon: ShieldCheck, title: "Постановка в одно касание", text: "Включайте / снимайте охрану без звонков в диспетчерскую." },
@@ -73,6 +74,23 @@ const features = [
             </li>
           ))}
         </ul>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={site.app.appStore} target="_blank" rel="noopener" class="inline-flex items-center gap-3 rounded-btn border border-border bg-bg-elevated/70 px-4 py-2.5 transition-colors hover:border-accent">
+            <svg class="h-6 w-6 text-ink" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.564 12.648c-.016-2.47 2.015-3.653 2.107-3.71-1.148-1.678-2.932-1.907-3.568-1.933-1.518-.154-2.963.895-3.735.895-.772 0-1.957-.873-3.218-.85-1.656.024-3.182.962-4.033 2.444-1.72 2.98-.44 7.385 1.236 9.804.817 1.183 1.79 2.512 3.064 2.466 1.232-.05 1.697-.797 3.187-.797 1.49 0 1.91.797 3.209.772 1.326-.023 2.167-1.208 2.977-2.395.94-1.375 1.325-2.71 1.347-2.78-.03-.012-2.585-.994-2.573-3.916zM15.36 5.392c.678-.824 1.137-1.964 1.01-3.102-.977.04-2.161.652-2.863 1.475-.628.728-1.18 1.893-1.03 3.008 1.09.084 2.205-.554 2.883-1.381z"/></svg>
+            <div class="leading-tight">
+              <div class="text-[10px] uppercase tracking-widest text-ink-subtle">Скачать в</div>
+              <div class="font-semibold text-ink">App Store</div>
+            </div>
+          </a>
+          <a href={site.app.googlePlay} target="_blank" rel="noopener" class="inline-flex items-center gap-3 rounded-btn border border-border bg-bg-elevated/70 px-4 py-2.5 transition-colors hover:border-accent">
+            <svg class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186c-.302-.169-.609-.508-.609-1.103V2.917c0-.595.307-.934.609-1.103zM14.863 12.939l2.48-2.48 3.125 1.803c.758.437.758 1.162 0 1.599l-3.125 1.803-2.48-2.725zm-1.071-1.073l-10.11-10.11 10.74 6.195-.63 3.915zm0 2.268l.63 3.915-10.74 6.195 10.11-10.11z"/></svg>
+            <div class="leading-tight">
+              <div class="text-[10px] uppercase tracking-widest text-ink-subtle">Скачать в</div>
+              <div class="font-semibold text-ink">Google Play</div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
