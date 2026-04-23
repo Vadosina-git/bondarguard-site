@@ -1,0 +1,41 @@
+---
+import { url } from "@lib/url";
+import { Shield, Zap, Radio } from "@lucide/astro";
+import { site } from "@data/site";
+
+const items = [
+  { src: "images/hero/camo-soldier.jpg", icon: Shield, label: "Готов к выезду", text: "Экипировка, средства защиты, радиосвязь. Смена сдаётся без пауз в охране." },
+  { src: "images/hero/camo-tactical.jpg", icon: Zap, label: "Отработанные сценарии", text: "Тренируемся на типовых инцидентах: проникновение, пожар, тревожная кнопка." },
+  { src: "images/scenes/patrol.jpg", icon: Radio, label: "На связи с пультом", text: "Постоянный канал с диспетчером. Кодовое слово, верификация, эскалация." },
+];
+---
+
+<section class="section" data-reveal>
+  <div class="container-tight">
+    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div class="max-w-2xl">
+        <span class="eyebrow">Наши бойцы</span>
+        <h2 class="mt-4 font-display text-display-lg text-ink">Команда, на которую полагаются {site.coverage.objectsCount.toLocaleString("ru-RU")}+ объектов</h2>
+      </div>
+      <p class="max-w-md text-ink-muted">Сотрудники с действующими разрядами, ежеквартальными аттестациями и опытом работы в силовых структурах.</p>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-3">
+      {items.map((it) => (
+        <article class="group relative overflow-hidden rounded-card border border-border bg-bg-elevated transition-all duration-300 ease-out-quart hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow">
+          <div class="relative aspect-[4/5] overflow-hidden">
+            <img src={url(it.src)} alt={it.label} width="900" height="1100" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 ease-out-quart group-hover:scale-[1.04]" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-elevated via-bg-elevated/40 to-transparent"></div>
+            <div class="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-btn bg-bg/60 text-accent backdrop-blur">
+              <it.icon class="h-5 w-5" />
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="font-display text-xl text-ink">{it.label}</div>
+            <p class="mt-1 text-sm text-ink-muted">{it.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

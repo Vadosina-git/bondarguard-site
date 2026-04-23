@@ -2,12 +2,12 @@
 import { url } from "@lib/url";
 
 const tiles = [
-  { src: "images/scenes/tact-ops1.jpg", label: "ГБР", caption: "Экипажи готовы к выезду круглосуточно" },
-  { src: "images/scenes/team-meeting.jpg", label: "Команда", caption: "Ежедневный разбор инцидентов" },
-  { src: "images/scenes/camera-tech.jpg", label: "Монтаж", caption: "Подключаем камеры и панели под ключ" },
-  { src: "images/scenes/guard-post.jpg", label: "Пост охраны", caption: "Стационарная охрана объектов" },
-  { src: "images/hero/operator.jpg", label: "Пульт", caption: "24/7 мониторинговый центр" },
-  { src: "images/scenes/tactical-helm.jpg", label: "Экипировка", caption: "Бронежилет, связь, спецсредства" },
+  { src: "images/hero/camo-soldier.jpg", label: "ГБР", caption: "Экипажи в полной экипировке 24/7" },
+  { src: "images/hero/camo-operator.jpg", label: "Оператор", caption: "Ведём объект на пульте" },
+  { src: "images/hero/tactical-gear.jpg", label: "Экипировка", caption: "Бронежилет, связь, спецсредства" },
+  { src: "images/scenes/patrol.jpg", label: "Реагирование", caption: "Выезд ГБР на тревогу" },
+  { src: "images/hero/guard.jpg", label: "Пост охраны", caption: "Стационарная охрана объектов" },
+  { src: "images/hero/camo-tactical.jpg", label: "Готовность", caption: "Тренировки и разбор сценариев" },
 ];
 ---
 
@@ -22,11 +22,10 @@ const tiles = [
     </div>
 
     <div class="grid grid-cols-2 gap-3 md:grid-cols-3">
-      {tiles.map((t, i) => (
+      {tiles.map((t) => (
         <a
           href="#contact"
-          class={`group relative overflow-hidden rounded-card border border-border ${i === 0 ? "md:row-span-2" : ""} ${i === 3 ? "col-span-2 md:col-span-1" : ""}`}
-          style={i === 0 ? "aspect-ratio: 4/5" : "aspect-ratio: 4/3"}
+          class="group relative aspect-[4/3] overflow-hidden rounded-card border border-border"
         >
           <img src={url(t.src)} alt={t.label} width="800" height="600" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 ease-out-quart group-hover:scale-[1.06]" />
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent"></div>
