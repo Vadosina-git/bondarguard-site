@@ -2,31 +2,25 @@
 import { url } from "@lib/url";
 
 const tiles = [
-  { src: "images/hero/camo-soldier.jpg", label: "ГБР", caption: "Экипажи в полной экипировке 24/7" },
-  { src: "images/hero/camo-operator.jpg", label: "Оператор", caption: "Ведём объект на пульте" },
-  { src: "images/hero/tactical-gear.jpg", label: "Экипировка", caption: "Бронежилет, связь, спецсредства" },
-  { src: "images/scenes/patrol.jpg", label: "Реагирование", caption: "Выезд ГБР на тревогу" },
-  { src: "images/hero/guard.jpg", label: "Пост охраны", caption: "Стационарная охрана объектов" },
-  { src: "images/hero/camo-tactical.jpg", label: "Готовность", caption: "Тренировки и разбор сценариев" },
+  { src: "images/hero/camo-soldier.jpg", label: "ГБР", caption: "Экипажи 24/7" },
+  { src: "images/hero/camo-operator.jpg", label: "Оператор", caption: "Пульт без пауз" },
+  { src: "images/hero/tactical-gear.jpg", label: "Экипировка", caption: "Бронежилет · связь" },
+  { src: "images/scenes/patrol.jpg", label: "Выезд", caption: "Реакция на тревогу" },
+  { src: "images/hero/guard.jpg", label: "Пост", caption: "Стационарная охрана" },
+  { src: "images/hero/camo-tactical.jpg", label: "Готовность", caption: "Тренировки сценариев" },
 ];
 ---
 
 <section class="section" data-reveal>
   <div class="container-tight">
-    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-      <div class="max-w-2xl">
-        <span class="eyebrow">В работе</span>
-        <h2 class="mt-4 font-display text-display-lg text-ink">Каждый день — защищаем объекты</h2>
-        <p class="mt-3 text-ink-muted">Мониторинг, монтаж, реагирование — три направления, которые работают в связке 24/7.</p>
-      </div>
+    <div class="mb-10 max-w-2xl">
+      <span class="eyebrow">В работе</span>
+      <h2 class="mt-4 font-display text-display-lg text-ink">Защищаем каждый день</h2>
     </div>
 
     <div class="grid grid-cols-2 gap-3 md:grid-cols-3">
       {tiles.map((t) => (
-        <a
-          href="#contact"
-          class="group relative aspect-[4/3] overflow-hidden rounded-card border border-border"
-        >
+        <a href="#contact" class="group relative aspect-[4/3] overflow-hidden rounded-card border border-border">
           <img src={url(t.src)} alt={t.label} width="800" height="600" loading="lazy" class="h-full w-full object-cover transition-transform duration-700 ease-out-quart group-hover:scale-[1.06]" />
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent"></div>
           <div class="absolute bottom-3 left-3 right-3">

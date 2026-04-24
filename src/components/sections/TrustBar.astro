@@ -3,35 +3,21 @@ import { Timer, Shield, Users } from "@lucide/astro";
 import { site } from "@data/site";
 
 const items = [
-  {
-    icon: Timer,
-    title: `ГБР ${site.gbrTimeCity}`,
-    text: "Гарантируем время реагирования договором. Сеть экипажей по городу и области.",
-  },
-  {
-    icon: Shield,
-    title: "Вооружённый ГБР",
-    text: "Лицензированное спецсредство, право на задержание до прибытия полиции.",
-  },
-  {
-    icon: Users,
-    title: "Свой мониторинговый центр",
-    text: "Операторы 24/7 с дубль-каналом связи (GSM + Ethernet), без простоев.",
-  },
+  { icon: Timer, title: `ГБР ${site.gbrTimeCity}`, text: "SLA в договоре" },
+  { icon: Shield, title: "Вооружённый ГБР", text: "Право задержания" },
+  { icon: Users, title: "Свой пульт 24/7", text: "GSM + Ethernet" },
 ];
 ---
 
-<section class="py-10 sm:py-14 border-y border-border/60">
+<section class="py-10 sm:py-14">
   <div class="container-tight">
     <div class="grid gap-6 md:grid-cols-3">
       {items.map((item) => (
-        <div class="flex items-start gap-4" data-reveal>
-          <div class="grid h-12 w-12 shrink-0 place-items-center rounded-btn border border-accent/30 bg-accent/10 text-accent">
-            <item.icon class="h-5 w-5" />
-          </div>
+        <div class="flex items-center gap-4" data-reveal>
+          <span class="icon-pill"><item.icon /></span>
           <div>
             <div class="font-display text-xl text-ink">{item.title}</div>
-            <p class="mt-1 text-sm text-ink-muted">{item.text}</p>
+            <p class="text-sm text-ink-muted">{item.text}</p>
           </div>
         </div>
       ))}

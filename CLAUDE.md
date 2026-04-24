@@ -925,4 +925,47 @@ npm install -D @fontsource-variable/manrope @fontsource-variable/unbounded
 
 ---
 
+## 12. Implementation log (обновляется по ходу работы)
+
+### Состояние на 2026-04-24
+
+- **Деплой:** GitHub Pages, репозиторий `Vadosina-git/bondarguard-site`, боевой URL `https://vadosina-git.github.io/bondarguard-site/`. Auto-deploy через `.github/workflows/deploy.yml` (timeout `deploy-pages` поднят до 15 мин из-за провижена первого запуска).
+- **Стек:** Astro 5.18 (обновлено с 4.x из-за бага `@astrojs/sitemap` с `astro:routes:resolved`), Tailwind 3.4, TypeScript strict, `@lucide/astro` 1.9.
+- **Шрифты:** Display — **Onest Variable** (заменил Unbounded, он был слишком техно-геометричный и тяжело читался). Body — Manrope Variable. Обе кириллица из fontsource.
+- **Страницы (22 HTML):** главная, 4 object-type (`ohrana-domov/kvartir/biznesa/dachi`), 5 service-type (`pultovaya-ohrana`, `ohrannaya-signalizatsiya`, `trevozhnaya-knopka`, `pozharnaya-signalizatsiya`, `videonablyudenie`), `tarify`, `oborudovanie`, `o-kompanii`, `kontakty`, `policy`, `oferta`, `blog/index` + 4 MDX-статьи, 404. Sitemap и robots — на месте.
+- **Контакт:** `+7 (910) 445-68-43`. Реквизиты (ИНН/ОГРН/адрес) — заглушки из раздела 0.
+- **Тема:** `premium-dark` как default, добавлена **светлая тема** с тогл-кнопкой (html.light). Токены с --band-alt для чёткой контрастной альтернации полос в обеих темах. Inline-script в <head> ставит класс до рендера (no FOUC).
+- **Hero:** заменён на **HeroSlider** — 4-слайдовая карусель Embla с большими фотобэкграундами (дом ночью, коттедж, квартира, офис), автоплей 7с, диагональный градиент-разделитель в тёмный панель с контентом, стрелки + dot-пагинация + счётчик.
+- **Главная** собрана как чередующийся стек surface-plain / surface-tinted бэндов со **скошенными clip-path рёбрами** (32-48px, отключены на <640px). Порядок: HeroSlider → TrustBar → Strengths → CtaBanner → ServiceTiles → ParallaxBand → ServicesGrid → HowItWorks → CtaBanner → Stats + Coverage → Gallery → SquadStrip → ParallaxBand → MobileApp → CTASection → TeamGrid → Reviews → FAQ → ConsultationForm.
+- **Новые компоненты поверх спеки:**
+  - `HeroSlider` — fullscreen слайдер (§7.3)
+  - `ServicesGrid` — вторая сетка услуг на главной (сверху объектов) с большой первой карточкой
+  - `Strengths` — Сила/Скорость/Дисциплина, icon-pill иконки
+  - `SquadStrip` — «Наши бойцы», 3 портрета ГБР вертикально
+  - `Gallery` — 3×2 tile-grid с тактическими кадрами
+  - `Coverage` — список направлений Подмосковья + округов Москвы + stats
+  - `ParallaxBand` — fixed-attachment bg с затемнением, используется 2×
+  - `CtaBanner` — узкий full-width баннер с заголовком и кнопкой, 2× на главной
+  - `ThemeToggle` — кнопка смены темы
+- **Изображения:** 35+ фотографий в `public/images/` (team, hero, scenes), скачаны с Unsplash (свободная лицензия). Логотипы inline-SVG в Header/Footer, цвет текста через `currentColor` под обе темы.
+- **Форма заявок:** mock-режим (console.log + Yandex.Metrika goal `lead_mock`), `src/lib/api-lead-handler.ts` лежит вне `src/pages/` до переезда на Vercel.
+- **Анимации:** `data-reveal` (scroll fade-up через IntersectionObserver), Lenis smooth-scroll, Embla-карусели (Reviews, HeroSlider), count-up счётчики, **icon-pill** с масштаб+glow на hover, **sweep-shine** на primary-кнопках, **pulse-ring** / **float-slow** утилиты. Всё уважает `prefers-reduced-motion`.
+- **Data-файлы:** `src/data/site.ts` (константы компании, `coverage.directions` и `coverage.districtsCovered` — заглушки направлений/округов, `app.appStore/googlePlay` — redirect-заглушки в сторы), `services.ts`, `service-types.ts`, `tariffs.ts`, `team.ts` (6 человек: Бондарь, Вепрь, Хрусталев + 3 вымышленных), `reviews.ts`, `faq.ts`, `equipment.ts`, `navigation.ts`.
+
+### Что осталось placeholder (см. `docs/placeholders.md`)
+
+Реквизиты, цены, SLA, покрытие, фото команды, отзывы, документы, приложение, политика/оферта, карта в контактах, домен, Яндекс.Метрика, Telegram-бот.
+
+### История ключевых решений
+
+- Astro 4 → 5 (Apr 23) — из-за сбоя `_routes` hook в @astrojs/sitemap.
+- Unbounded → Onest (Apr 23) — пользователь попросил «более спокойный и читаемый» шрифт.
+- Dev-карусель в Hero заменила изначальный layout (Apr 23) — «в верхней части главного экрана пагинация / карусель с огромными картинками и косой линией».
+- Светлая тема (Apr 23) — добавлена по запросу, с no-FOUC скриптом и токенами на обе темы.
+- Массовый swap иллюстраций на Unsplash по категориям (Apr 23) — пользователь передал 15 поисковых запросов: hero / cottage / apartment / business.
+- Чередование surface-plain/tinted + clip-path скосов (Apr 24) — «сделать контрастнее, чередовать тёмные и светлые блоки, разделители не жёсткими».
+- Из mosguard.ru материалы НЕ копируются — только thematic-аналоги на Unsplash под свободной лицензией.
+
+---
+
 **Готово.** Документ самодостаточен для передачи в Claude Code.
